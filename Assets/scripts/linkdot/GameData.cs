@@ -124,9 +124,6 @@ public class GameData : ScriptableObject
         string tData = Datas.CreateInstance<Datas>().getData("linkdots")[GameData.instance.cLevel];//level
         levelData = SimpleJSON.JSONArray.Parse(tData);
 
-
-
-       
         //SimpleJSON.JSONNode levelSize = levelData[1]["levels"];//dot postion imformation(in pairs) //1 6x6 
 
         bsize = int.Parse(levelData["r"]);//int.Parse(levelData[1]["size"]);
@@ -134,11 +131,6 @@ public class GameData : ScriptableObject
         colors = new Color[] { Color.clear, Color.red, Color.blue, Color.magenta, Color.cyan, Color.green, Color.yellow, Color.gray, Color.white, Color.black, new Color(252f / 255f, 157f / 255f, 154f / 255f), new Color(249f / 255f, 205f / 255f, 173f / 255f), new Color(200f / 255f, 200f / 255f, 169f / 255f) };
         ColorData = new int[bsize * bsize];
         DotColorData = new int[bsize * bsize];
-
-
-        //string clevelStr = getLevel(0);
-        ////print (clevelStr);
-        //dotPoses = clevelStr.Split(";"[0]);
 
         dotPoses = levelData["l"];//this is actually is pathes between 2 dots
 
@@ -157,8 +149,7 @@ public class GameData : ScriptableObject
        
 
         linkedLines = new int[GameData.instance.paths.Count+1];
-
-       
+ 
     }
 
 
@@ -170,27 +161,27 @@ public class GameData : ScriptableObject
     public bool isHolding = false;
     public int pickColor = -1;
 
-    [HideInInspector]
+//    [HideInInspector]
     public SimpleJSON.JSONNode dotPoses;
-    [HideInInspector]
+//    [HideInInspector]
     public int[] ColorData;
-    [HideInInspector]
+//    [HideInInspector]
     public int[] DotColorData;
-    [HideInInspector]
+//    [HideInInspector]
     public Color[] colors;
-    [HideInInspector]
+//    [HideInInspector]
     public int startId = -1;
-    [HideInInspector]
+//    [HideInInspector]
     public int lasttx = -1;
-    [HideInInspector]
+//    [HideInInspector]
     public int lastty = -1;
-    [HideInInspector]
+//    [HideInInspector]
     public List<List<int>> paths;
-    [HideInInspector]
+//    [HideInInspector]
     public int[] linkedLines;//check all colors whehter links
-    [HideInInspector]
+//    [HideInInspector]
     public static int bsize = 6;
-    [HideInInspector]
+//    [HideInInspector]
     public int winLinkCount;//how many linkage requires to win(commonly its half of the number of dots)
 
 

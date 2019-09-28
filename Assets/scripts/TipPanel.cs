@@ -74,7 +74,7 @@ public class TipPanel : MonoBehaviour
     bool canShow = true;
     public void showTipPanel()
     {
-        GameManager.getInstance().playSfx("click");
+//        GameManager.getInstance().playSfx("click");
         showOrHideTipPanel();
 
     }
@@ -84,14 +84,14 @@ public class TipPanel : MonoBehaviour
     {
         if (!isShowed)
             return;
-        GameManager.getInstance().playSfx("click");
+//        GameManager.getInstance().playSfx("click");
         showOrHideTipPanel();
         showTip();
     }
 
     public void noHandler()
     {
-        GameManager.getInstance().playSfx("click");
+//        GameManager.getInstance().playSfx("click");
         showOrHideTipPanel();
     }
 

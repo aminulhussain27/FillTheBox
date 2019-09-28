@@ -8,6 +8,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
+		Debug.LogError ("Singleton<T>");
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);

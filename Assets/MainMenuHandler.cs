@@ -32,7 +32,6 @@ public class MainMenuHandler : MonoBehaviour {
 		
 	public void StartButtonAction()
 	{
-		GameManager.getInstance ().playSfx ("click");
 
 		all_level.SetActive (true);
 

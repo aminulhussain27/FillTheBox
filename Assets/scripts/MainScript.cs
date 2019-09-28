@@ -81,21 +81,15 @@ public class MainScript : MonoBehaviour
     /// </summary>
     public void refreshView()
     {
-        GameObject.Find("btnTip").GetComponentInChildren<Text>().text = GameData.getInstance().tipRemain.ToString();
-        //		print (GameData.getInstance ().tipRemain.ToString ());
-        GameObject.Find("lb_level").GetComponent<Text>().text = (GameData.getInstance().cLevel + 1).ToString();
+        GameObject.Find("CurrentLevelText").GetComponent<Text>().text = (GameData.getInstance().cLevel + 1).ToString();
        
-
         timeTxt = GameObject.Find("timeTxt").GetComponent<Text>();
-
 
         GameObject tIns = GameObject.Find("lb_ins");
         if (tIns != null)
         {
             tIns.GetComponent<Text>().text ="lb_ins";
         }
-        //GameObject.Find ("btnRetryB").GetComponentInChildren<Text> ().text = Localization.Instance.GetString ("btnRetry");
-        //GameObject.Find ("btnMain").GetComponentInChildren<Text> ().text = Localization.Instance.GetString ("btnReturn");
     }
 
 
@@ -254,8 +248,6 @@ public class MainScript : MonoBehaviour
     //handler event
     public void OnRetryClick()
     {
-        // Add event handler code here
-        GameManager.getInstance().playSfx("click"); 
         GameObject.Find("linkdot").GetComponent<LinkDot>().init();
     }
 
@@ -267,16 +259,11 @@ public class MainScript : MonoBehaviour
    /// 
     public void gameWin()
     {
-        //fire win event
-
-        GameManager.getInstance().playSfx("win");
         if (GameData.getInstance().cLevel % 5 == 0 && GameData.getInstance().cLevel > 0)
         {
             //			musicScript.showCB();
             
         }
-
-        GameManager.getInstance().showInterestitial();
 
         GameData.getInstance().isWin = true;
         int threeStar = 10;// (int)(levelData [1].Count/2/1.2f)+2;//one line per second
@@ -368,13 +355,15 @@ public class MainScript : MonoBehaviour
 
     }
 
+
+
     /// <summary>
     /// deal Button clicks handler.
     /// </summary>
     /// <param name="control">Control.</param>
     public void buttonHandler(GameObject control)
     {
-        GameManager.getInstance().playSfx("click");
+//        GameManager.getInstance().playSfx("click");
         switch (control.name)
         {
             case "btnMain":
@@ -396,7 +385,7 @@ public class MainScript : MonoBehaviour
 
     public void loadLevelScene()
     {
-        GameManager.getInstance().playSfx("click");
+//        GameManager.getInstance().playSfx("click");
         all_level = GameObject.Find("all_level");
         if (all_level != null)
         {

@@ -67,27 +67,27 @@ public class musicScript : MonoBehaviour {
 	
 
 	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			Time.timeScale = 1;
-//			GameData.getInstance().init();
-			Debug.Log(Application.loadedLevelName);
-			if (Application.loadedLevelName == "Game") {
-				GameManager.getInstance().stopAllSFX();
-				SceneManager.LoadScene ("LevelMenu");
-			} else if(Application.loadedLevelName == "LevelMenu" ){
-				GameManager.getInstance().stopAllSFX();
-				SceneManager.LoadScene ("MainMenu");
-			}else if(Application.loadedLevelName == "MainMenu"){
-			
-				GameObject.Find("PanelFade").SendMessage("exit");
-			}
-			
-			
-			
-			
-		}
-	}
+//	void Update () {
+//		if (Input.GetKeyDown (KeyCode.Escape)) {
+//			Time.timeScale = 1;
+////			GameData.getInstance().init();
+//			Debug.Log(Application.loadedLevelName);
+//			if (Application.loadedLevelName == "Game") {
+//				GameManager.getInstance().stopAllSFX();
+//				SceneManager.LoadScene ("LevelMenu");
+//			} else if(Application.loadedLevelName == "LevelMenu" ){
+//				GameManager.getInstance().stopAllSFX();
+//				SceneManager.LoadScene ("MainMenu");
+//			}else if(Application.loadedLevelName == "MainMenu"){
+//			
+//				GameObject.Find("PanelFade").SendMessage("exit");
+//			}
+//			
+//			
+//			
+//			
+//		}
+//	}
 
 
 

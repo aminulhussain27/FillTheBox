@@ -11,7 +11,7 @@ public class Explosion : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-	
+		Debug.LogError ("Explosion");
 		}
 	
 		// Update is called once per frame

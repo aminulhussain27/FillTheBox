@@ -296,7 +296,7 @@ namespace linkDot{
             if (canPlatDotSfx)
             {
                 string tsfx = "d" + Mathf.FloorToInt(Random.Range(0, 6));
-                GameManager.getInstance().playSfx(tsfx);
+//                GameManager.getInstance().playSfx(tsfx);
                 canPlatDotSfx = false;
                 StartCoroutine("sfxGap");
             }
@@ -377,20 +377,25 @@ namespace linkDot{
         }
 
    
-		void checkWin(){
+		void checkWin()
+		{
 			int nwin = 0;
-			for (int k = 0; k < GameData.instance.linkedLines.Length; k++) {
-				if (GameData.instance.linkedLines [k] == 1) {
+			for (int k = 0; k < GameData.instance.linkedLines.Length; k++) 
+			{
+				if (GameData.instance.linkedLines [k] == 1) 
+				{
 					nwin++;
 				}
 
 			}
             //print(nwin + "_____" + GameData.instance.winLinkCount);
-			if(nwin >= GameData.instance.winLinkCount){//enough linkage
+			if(nwin >= GameData.instance.winLinkCount)
+			{//enough linkage
 				GameData.instance.isHolding = false;
 				GameData.instance.isWin = true;
                 GameObject reciever = GameObject.Find("all_game");
-                if (reciever != null) {
+                if (reciever != null) 
+				{
                     reciever.transform.parent.GetComponent<MainScript>().gameWin();
                     print("game win!!");
                 }

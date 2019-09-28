@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2B23BDE2-12A5-8F39-FDEB-E5528946386D}</ProjectGuid>
+    <ProjectGuid>{24254A58-F366-BFBA-AD9C-6E5BD712AC06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -66,7 +66,6 @@
      <Compile Include="Assets\scripts\TestMouseTouch.cs" />
      <Compile Include="Assets\scripts\TipPanel.cs" />
      <Compile Include="Assets\scripts\tools\CameraControls.cs" />
-     <Compile Include="Assets\scripts\tools\Const.cs" />
      <Compile Include="Assets\scripts\tools\Explosion.cs" />
      <Compile Include="Assets\scripts\tools\InputHelper.cs" />
      <Compile Include="Assets\scripts\tools\SimpleJson.cs" />
@@ -243,6 +242,15 @@
  <Reference Include="UnityEngine.SpatialTracking">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2017.4.27f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
+ <Reference Include="TweenTool">
+ <HintPath>C:/Users/anonymous/Documents/GitHub/FillTheBox/Assets/scripts/tools/TweenTool/TweenTool.dll</HintPath>
+ </Reference>
+ <Reference Include="TweenTool43">
+ <HintPath>C:/Users/anonymous/Documents/GitHub/FillTheBox/Assets/scripts/tools/TweenTool/TweenTool43.dll</HintPath>
+ </Reference>
+ <Reference Include="TweenTool46">
+ <HintPath>C:/Users/anonymous/Documents/GitHub/FillTheBox/Assets/scripts/tools/TweenTool/TweenTool46.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/anonymous/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/UnityEngine.Analytics.dll</HintPath>
  </Reference>
@@ -251,15 +259,6 @@
  </Reference>
  <Reference Include="UnityEngine.StandardEvents">
  <HintPath>C:/Users/anonymous/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
- </Reference>
- <Reference Include="TweenTool">
- <HintPath>C:/Users/anonymous/Documents/GitHub/FillTheNukeBox/Assets/scripts/tools/TweenTool/TweenTool.dll</HintPath>
- </Reference>
- <Reference Include="TweenTool43">
- <HintPath>C:/Users/anonymous/Documents/GitHub/FillTheNukeBox/Assets/scripts/tools/TweenTool/TweenTool43.dll</HintPath>
- </Reference>
- <Reference Include="TweenTool46">
- <HintPath>C:/Users/anonymous/Documents/GitHub/FillTheNukeBox/Assets/scripts/tools/TweenTool/TweenTool46.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

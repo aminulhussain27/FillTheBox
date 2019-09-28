@@ -323,7 +323,6 @@ public class LevelMenu : MonoBehaviour
     /// <param name="tbtn">Tbtn.</param>
     void clickLevel(GameObject tbtn)
     {
-        GameManager.getInstance().playSfx("click");
         GameData.getInstance().cLevel = int.Parse(tbtn.GetComponentInChildren<Text>().text) - 1;
         if (GameData.instance.mode == 1)//the fade transition for test only
         {
@@ -403,7 +402,6 @@ public class LevelMenu : MonoBehaviour
     /// </summary>
     public void backMain()
     {
-        GameManager.getInstance().playSfx("click");
         if (all_mainMenu == null || GameData.instance.mode == 1)//this is always for test because you may not start from the initiate window.
         {
             fadeIn("MainMenu");
@@ -525,36 +523,4 @@ public class LevelMenu : MonoBehaviour
         ATween.MoveTo(gContainer[page].transform.parent.gameObject, ATween.Hash("ignoretimescale", true, "islocal", true, "x", -gContainer[page].transform.localPosition.x, "time", .3f, "easeType", "easeOutExpo", "oncomplete", "dotclicked", "oncompletetarget", this.gameObject));
 
     }
-
-    /// <summary>
-    /// cliked and choosed a difficulty on difficulty choose ui
-    /// </summary>
-    /// <param name="g"></param>
-    public void selectDifficulty(GameObject g)
-    {
-        GameManager.getInstance().playSfx("click");
-        switch (g.name)
-        {
-            case "btneasy":
-                GameData.difficulty = 0;
-                break;
-            case "btnmedium":
-                GameData.difficulty = 1;
-                break;
-            case "btnadvanced":
-                GameData.difficulty = 2;
-                break;
-        }
-        refreshView();
-    }
-
-
-    //debug use
-    public void debugtext(string str)
-    {
-        //GameObject.Find ("txtScores").GetComponent<Text> ().text = str;
-    }
-
-
-
 }

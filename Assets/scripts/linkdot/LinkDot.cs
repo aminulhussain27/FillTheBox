@@ -6,25 +6,20 @@ using DG.Tweening;
 namespace linkDot{
 	public class LinkDot : MonoBehaviour {
 
-		GameObject container;
+		public GameObject container;
 		void Start () {
             
 		}
 
-        public void init() {
+        public void init() 
+		{
            
+			Debug.Log ("Init in LinkDot");
 
             GameData.getInstance().clearData();
             GameData.instance.resetData();
             GameData.getInstance().init();
 
-           
-
-            container = transform.Find("container").gameObject;
-
-
-
-           
 
             GameObject tBg = Resources.Load("linkdots/square") as GameObject;
             float gridW = GetComponent<SpriteRenderer>().sprite.bounds.size.x / GameData.bsize;
@@ -170,17 +165,14 @@ namespace linkDot{
 
                 GameData.instance.DotColorData[tindex] = i+1;
                 
-
-
             }
 
-            //container.transform.localScale *= .9f;
-        }
-
-        // Update is called once per frame
-        void Update () {
-
+			transform.localScale = Vector3.one;
+			transform.localPosition = Vector3.zero;
+			container.transform.localScale = new Vector3 (1.65f, 1.6f, 1);
+			container.transform.localPosition = new Vector3 (0, -1.25f, 3.584f);
 		}
+			
 
         public void clear()
         {

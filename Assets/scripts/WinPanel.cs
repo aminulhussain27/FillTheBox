@@ -48,7 +48,7 @@ public class WinPanel : MonoBehaviour {
 	{
 				if (!isShowed)
 						return;
-		GameManager.getInstance ().playSfx ("click");
+//		GameManager.getInstance ().playSfx ("click");
 		showHidePanel ();
 
 		if (GameData.getInstance ().cLevel < GameData.totalLevel[GameData.difficulty]-1) {
@@ -63,7 +63,7 @@ public class WinPanel : MonoBehaviour {
 	
 	public void OnRetryEventHandler()
 	{
-		GameManager.getInstance ().playSfx ("click");
+//		GameManager.getInstance ().playSfx ("click");
 		showHidePanel ();
 		
 	}

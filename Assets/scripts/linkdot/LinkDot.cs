@@ -6,7 +6,6 @@ using DG.Tweening;
 namespace linkDot{
 	public class LinkDot : MonoBehaviour {
 
-		public GameObject container;
 		void Start () {
             
 		}
@@ -16,6 +15,8 @@ namespace linkDot{
            
 			Debug.Log ("Init in LinkDot");
 
+			UIManager.Instance().linkDotContainer.SetActive (true);
+
             GameData.getInstance().clearData();
             GameData.instance.resetData();
             GameData.getInstance().init();
@@ -23,33 +24,33 @@ namespace linkDot{
 
             GameObject tBg = Resources.Load("linkdots/square") as GameObject;
             float gridW = GetComponent<SpriteRenderer>().sprite.bounds.size.x / GameData.bsize;
-            //
+            
             float orginSize = tBg.GetComponent<SpriteRenderer>().bounds.size.x;
             float tscale = gridW / tBg.GetComponent<SpriteRenderer>().bounds.size.x;
-            //
+            
 
             float gap = tBg.GetComponent<SpriteRenderer>().bounds.size.x * (1f - tscale);
-            //			print (tscale);
+
             GameObject tCircle = Resources.Load("linkdots/dot") as GameObject;
             GameObject tLink = Resources.Load("linkdots/link") as GameObject;
 
 
             float offsetx = -1 * gridW * GameData.bsize / 2 + gridW / 2;// 0;// gridW * 3f;
             float offsety = offsetx;//0;// gridW * 2f;
-            List<GameObject> tbgs = new List<GameObject>();
-            for (int i = 0; i < GameData.bsize * GameData.bsize; i++)
+           
+			List<GameObject> tbgs = new List<GameObject>();
+            
+			for (int i = 0; i < GameData.bsize * GameData.bsize; i++)
             {
                 int tx = Mathf.FloorToInt(i % GameData.bsize);
                 int ty = Mathf.FloorToInt(i / GameData.bsize);
-                GameObject tbg = Instantiate(tBg, container.transform);
+				GameObject tbg = Instantiate(tBg, UIManager.Instance().linkDotContainer.transform);
                 tbg.transform.localScale *= tscale;
-                tbg.transform.localPosition = new Vector2(container.transform.localPosition.x + gridW * tx + offsetx, container.transform.localPosition.y + gridW * ty + offsety);
+				tbg.transform.localPosition = new Vector2(UIManager.Instance().linkDotContainer.transform.localPosition.x + gridW * tx + offsetx, UIManager.Instance().linkDotContainer.transform.localPosition.y + gridW * ty + offsety);
                 tbg.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 tbg.name = "bg" + tx + "_" + ty;
                 tbg.GetComponent<SpriteRenderer>().color = Color.clear;
                 tbgs.Add(tbg);
-
-
 
                 tbg.gameObject.AddComponent<BoxCollider>();
                 tbg.gameObject.AddComponent<TouchDots>();
@@ -60,16 +61,15 @@ namespace linkDot{
                 GameData.instance.ColorData[i] = 0;//no color
                 GameData.instance.DotColorData[i] = 0;//no color
 
-
                 int[] rotation = new int[] { 0, 90, 180, 270 };
                 for (int j = 0; j < 4; j++)
                 {//add 4 link lines to each square
-                    GameObject tlink = Instantiate(tLink, container.transform);
+					GameObject tlink = Instantiate(tLink, UIManager.Instance().linkDotContainer.transform);
                     
                     tlink.transform.localPosition = tbg.transform.localPosition;
                     tlink.transform.localScale = tbg.transform.localScale;
                     tlink.transform.localEulerAngles = new Vector3(0, 0, rotation[j]);
-                    //					tlink.GetComponent<SpriteRenderer> ().color = Color.red;
+
                     tlink.GetComponent<SpriteRenderer>().color = Color.clear;
                     tlink.GetComponent<SpriteRenderer>().sortingOrder = 2;
                     switch (j)
@@ -88,17 +88,11 @@ namespace linkDot{
                             break;
                     }
                 }
-
-
             }
-
-
 
             int n = 1;//because 0 is no color
             for(int i = 0;i<GameData.instance.dotPoses.Count;i++) //(string tdotPoses in GameData.instance.dotPoses)
             {
-
-
                 string[] pos = new string[2];
                 pos[0] = GameData.instance.dotPoses[i]["v"][0]["x"];//
                 pos[1] = GameData.instance.dotPoses[i]["v"][0]["y"];//
@@ -109,19 +103,13 @@ namespace linkDot{
                 int tx = int.Parse(pos[0]);
                 int ty = int.Parse(pos[1]);
 
-
-
                 int tindex = ty * GameData.bsize + tx;
    
                 GameObject tcircle = Instantiate(tCircle, tbgs[tindex].transform) as GameObject;
 
-
-
-
-                tcircle.transform.localScale *= .9f;
+				tcircle.transform.localScale *= 0.9f;
                 tcircle.GetComponent<SpriteRenderer>().sortingOrder = 3;
                 tcircle.GetComponent<SpriteRenderer>().color = GameData.instance.colors[i+1];
-
 
                 tcircle.name = "dot";
 
@@ -134,9 +122,7 @@ namespace linkDot{
 
                 GameData.instance.DotColorData[tindex] = i + 1;
 
-                //====================================
-                //tx = Mathf.FloorToInt(int.Parse(pos[1]) % GameData.bsize);
-                //ty = Mathf.FloorToInt(int.Parse(pos[1]) / GameData.bsize);
+
                 int tcount = GameData.instance.dotPoses[i]["v"].Count;
                 pos[0] = GameData.instance.dotPoses[i]["v"][tcount-1]["x"];//
                 pos[1] = GameData.instance.dotPoses[i]["v"][tcount-1]["y"];//
@@ -164,26 +150,24 @@ namespace linkDot{
                 tcircle.transform.DOScale(tcScale, 1).SetDelay(tdelay).SetEase(Ease.OutBounce);
 
                 GameData.instance.DotColorData[tindex] = i+1;
-                
             }
 
-			transform.localScale = Vector3.one;
-			transform.localPosition = Vector3.zero;
-			container.transform.localScale = new Vector3 (1.65f, 1.6f, 1);
-			container.transform.localPosition = new Vector3 (0, -1.25f, 3.584f);
+//			transform.localScale = Vector3.one;
+//			transform.localPosition = Vector3.zero;
+//			container.transform.localScale = new Vector3 (1.65f, 1.6f, 1);
+//			container.transform.localPosition = new Vector3 (0, -1.25f, 3.584f);
 		}
 			
 
         public void clear()
         {
-            if (container != null)
+			if (UIManager.Instance().linkDotContainer != null)
             {
-                foreach (Transform tobj in container.transform)
+				foreach (Transform tobj in UIManager.Instance().linkDotContainer.transform)
                 {
                     tobj.DOScale(Vector3.zero, .2f);
                 }
             }
         }
-        
 	}
 }

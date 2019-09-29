@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
-
 using DG.Tweening;
 public class LevelMenu : MonoBehaviour
 {
@@ -12,54 +10,36 @@ public class LevelMenu : MonoBehaviour
     // Use this for initialization
 	public GameObject mainMenuPanel;
     GameObject listItemg;
-    GameObject mainContainer;
+
     List<GameObject> groups;
+
+	public GameObject all_mainMenu;
+	public GameObject all_game;
+
+	GameObject controlbar;
+	GameObject btnDiff;
+
+	Vector3 middlestart;
 
 
     void Start()
     {
-
-        GameManager.getInstance().init();
-        GameData.getInstance().resetData();
-        if (all_game != null) return;
-        SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-
-
-        GameData.getInstance().currentScene = 1;
+//        GameManager.getInstance().init();
+		UIManager.Instance ().Init ();
+		GameData.getInstance().resetData();
 
         initLevels();
+	}
 
-    }
-
-	public GameObject all_mainMenu;//main menu ui container
-    GameObject all_level;//levelmenu container
-    GameObject all_game;
-
-    GameObject difficultPanel;
-    GameObject controlbar;
-    GameObject btnDiff;
-
-    Vector3 middlestart;
-    private void OnEnable()
-    {
-
-//        difficultPanel = GameObject.Find("middle");
-//        middlestart = difficultPanel.transform.position;
-//        //difficultPanel.SetActive(false);
-//        controlbar = GameObject.Find("controlbar");
-//        //controlbar.SetActive(false);
-//        mainContainer = GameObject.Find("mainContainer");
-//        //mainContainer.SetActive(false);
-//        btnDiff = GameObject.Find("btnDiff");
-    }
 
     void initLevels()
     {
 		Debug.Log ("initLevels");
+
         initView();
         GameData.getInstance().currentScene = 1;//1 is levelmenu
         groups = new List<GameObject>();
-//        mainContainer.SetActive(true);
+
     }
 
     public void refreshLevel()
@@ -74,10 +54,10 @@ public class LevelMenu : MonoBehaviour
     {
         if (canmove)
         {
-            foreach (Transform m in mainContainer.transform)
-            {
-                m.transform.Translate(dis, 0, 0);
-            }
+//            foreach (Transform m in mainContainer.transform)
+//            {
+//                m.transform.Translate(dis, 0, 0);
+//            }
             isMoving = true;
         }
     }
@@ -323,6 +303,8 @@ public class LevelMenu : MonoBehaviour
     /// <param name="tbtn">Tbtn.</param>
     void clickLevel(GameObject tbtn)
     {
+		Debug.Log ("clickLevel  tbtn: " + tbtn);
+
         GameData.getInstance().cLevel = int.Parse(tbtn.GetComponentInChildren<Text>().text) - 1;
         if (GameData.instance.mode == 1)//the fade transition for test only
         {
@@ -411,30 +393,12 @@ public class LevelMenu : MonoBehaviour
             all_mainMenu.transform.DOMoveX(all_mainMenu.transform.position.x + Screen.width, 1f).SetEase(Ease.OutBounce).OnComplete(() => { 
 				GameData.instance.currentScene = 0; 
 			});
-            all_level.transform.DOMoveX(all_level.transform.position.x + Screen.width, 1f).SetEase(Ease.OutBounce);
+          //  all_level.transform.DOMoveX(all_level.transform.position.x + Screen.width, 1f).SetEase(Ease.OutBounce);
         }
 
 
 
     }
-
-    /// <summary>
-    /// Loads the game scene.
-    /// </summary>
-    public void loadGameScene()
-    {
-
-        SceneManager.LoadScene("Game");
-    }
-    /// <summary>
-    /// Loads the main scene.
-    /// </summary>
-    public void loadMainScene()
-    {
-
-        SceneManager.LoadScene("MainMenu");
-    }
-
 
     bool canmove = true;//can not enter a level and can not move when moving
                         /// <summary>
@@ -523,4 +487,5 @@ public class LevelMenu : MonoBehaviour
         ATween.MoveTo(gContainer[page].transform.parent.gameObject, ATween.Hash("ignoretimescale", true, "islocal", true, "x", -gContainer[page].transform.localPosition.x, "time", .3f, "easeType", "easeOutExpo", "oncomplete", "dotclicked", "oncompletetarget", this.gameObject));
 
     }
+
 }

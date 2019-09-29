@@ -397,7 +397,6 @@ namespace linkDot{
                 if (reciever != null) 
 				{
                     reciever.transform.parent.GetComponent<MainScript>().gameWin();
-                    print("game win!!");
                 }
                 else
                 {

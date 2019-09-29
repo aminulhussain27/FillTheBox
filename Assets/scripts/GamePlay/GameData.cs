@@ -7,11 +7,14 @@ public class GameData : ScriptableObject
     public int nLink = 0; //check in game.When nlink = 0.All the lines linked,so win.
     public int levelPassed = 0;//how much level you passed
     public int cLevel = 0;//currect level
-    public static bool isTrial;//not used
-    public static string lastWindow = "";//not used
+    
     public static int totalLevel = 10;//total levels,currently,we make things easier,only use 50 levels the same for each difficulty
 	public List<int> levelStates;
-    public int mode = 0;
+	public bool isWin = false;//check if win
+	public List<int> lvStar = new List<int>();//level stars you got for each level
+	public bool isfail = false;//whether the game failed
+
+	private SimpleJSON.JSONNode levelData;
 
     public static GameData instance;
     public static GameData getInstance()
@@ -23,10 +26,7 @@ public class GameData : ScriptableObject
         return instance;
     }
 
-    public bool isWin = false;//check if win
-    public string tickStartTime = "0";//game count down.
-    public List<int> lvStar = new List<int>();//level stars you got for each level
-    public bool isfail = false;//whether the game failed
+
 
     /// <summary>
     /// Always uses for initial or reset to start a new level.
@@ -35,8 +35,6 @@ public class GameData : ScriptableObject
     {
         isWin = false;
         isfail = false;
-
-        tickStartTime = PlayerPrefs.GetString("tipStart", "0");
 
         //reset level pass states
         GameData.instance.levelStates = new List<int>();
@@ -49,14 +47,13 @@ public class GameData : ScriptableObject
 		}
     }
 		
-    SimpleJSON.JSONNode levelData;
 
-    public void init()
+    public void InitializeGameData()
     {
         string tData = Datas.CreateInstance<Datas>().getData("linkdots")[GameData.instance.cLevel];//level
         levelData = SimpleJSON.JSONArray.Parse(tData);
 
-        bsize = int.Parse(levelData["r"]);//int.Parse(levelData[1]["size"]);
+        bsize = int.Parse(levelData["r"]);
 
         colors = new Color[] { Color.clear, Color.red, Color.blue, Color.magenta, Color.cyan, Color.green, Color.yellow, Color.gray, Color.white, Color.black, new Color(252f / 255f, 157f / 255f, 154f / 255f), new Color(249f / 255f, 205f / 255f, 173f / 255f), new Color(200f / 255f, 200f / 255f, 169f / 255f) };
         ColorData = new int[bsize * bsize];

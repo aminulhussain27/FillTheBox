@@ -224,16 +224,16 @@ public class LevelMenu : MonoBehaviour
 		Debug.Log ("clickLevel  tbtn: " + tbtn);
 
         GameData.getInstance().cLevel = int.Parse(tbtn.GetComponentInChildren<Text>().text) - 1;
-        if (GameData.instance.mode == 1)//the fade transition for test only
-        {
-            if (!isMoving)
-            {
-               
-                fadeIn("game");
-            }
-        }
-        else//load level
-        {
+//        if (GameData.instance.mode == 1)//the fade transition for test only
+//        {
+//            if (!isMoving)
+//            {
+//               
+//                fadeIn("game");
+//            }
+//        }
+//        else//load level
+//        {
 			UIManager.Instance().linkDotGO.GetComponent<linkDot.LinkDot>().init();
 			if (UIManager.Instance().gamePanel != null)
             {
@@ -241,7 +241,7 @@ public class LevelMenu : MonoBehaviour
             }
 				
 			UIManager.Instance().mainMenuPanel.SetActive (false);
-        }
+//        }
     }
 
 
@@ -278,15 +278,15 @@ public class LevelMenu : MonoBehaviour
         string tstr = "game";// + GameData.getInstance ().cLevel;
 
 
-        if (GameData.instance.mode == 1)//this is always for test because you may not start from the initiate window.
-        {
-            fadeIn(tstr);
-
-        }
-        else
-        {
+//        if (GameData.instance.mode == 1)//this is always for test because you may not start from the initiate window.
+//        {
+//            fadeIn(tstr);
+//
+//        }
+//        else
+//        {
 			UIManager.Instance ().linkDotGO.GetComponent<linkDot.LinkDot> ().init ();
-        }
+//        }
     }
     bool canmove = true;//can not enter a level and can not move when moving
                         /// <summary>

@@ -63,17 +63,7 @@ public class UIManager : MonoBehaviour {
 
 	public void StartButtonAction()
 	{
-
 		all_level.SetActive (true);
-
-		if (GameData.instance.mode == 1) 
-		{
-			fadeIn ("levelMenu");
-		} 
-		else 
-		{
-			all_level.gameObject.SetActive (true);
-		}
 	}
 
 	void fadeOut()
@@ -115,18 +105,18 @@ public class UIManager : MonoBehaviour {
 
 	public void Init()
 	{
-		Debug.Log ("init in UIManager");
-
-		GameData.getInstance().levelStates = new List<int>();
-
-		for (int j = 0; j < GameData.totalLevel ; j++) 
-		{
-			int tState = PlayerPrefs.GetInt ("linkdot_" + "_" + j, 0);
-
-			GameData.instance.levelStates.Add (tState);
-
-			GameData.getInstance ().levelStates[j] = tState;
-		}
+//		Debug.Log ("init in UIManager");
+//
+//		GameData.getInstance().levelStates = new List<int>();
+//
+//		for (int j = 0; j < GameData.totalLevel ; j++) 
+//		{
+//			int tState = PlayerPrefs.GetInt ("linkdot_" + "_" + j, 0);
+//
+//			GameData.instance.levelStates.Add (tState);
+//
+//			GameData.getInstance ().levelStates[j] = tState;
+//		}
 	}
 
 	public void GameWin ()

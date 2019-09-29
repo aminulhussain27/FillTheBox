@@ -21,7 +21,7 @@ namespace linkDot{
 
             GameData.getInstance().clearData();
             GameData.instance.resetData();
-            GameData.getInstance().init();
+			GameData.getInstance().InitializeGameData();
 
 
             GameObject tBg = Resources.Load("linkdots/square") as GameObject;
@@ -156,7 +156,7 @@ namespace linkDot{
 
 //			transform.localScale = Vector3.one;
 //			transform.localPosition = Vector3.zero;
-//			container.transform.localScale = new Vector3 (1.65f, 1.6f, 1);
+			transform.localScale = new Vector3 (1.65f, 1.6f, 1);
 //			container.transform.localPosition = new Vector3 (0, -1.25f, 3.584f);
 		}
 			

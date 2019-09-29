@@ -31,16 +31,9 @@ public class LevelMenu : MonoBehaviour
 		Debug.Log ("initLevels");
 
         initView();
-        GameData.getInstance().currentScene = 1;//1 is levelmenu
         groups = new List<GameObject>();
 
     }
-
-    public void refreshLevel()
-    {
-        GameData.instance.currentScene = 1;
-    }
-		
 
     bool isMoving = false;
     public void move(float dis)
@@ -125,7 +118,6 @@ public class LevelMenu : MonoBehaviour
         //not allow level buttons active while moving the menu
         StopCoroutine("swiped");
         StartCoroutine("swiped");
-
     }
 
     //lock the game while page is auto moving.Unlock when finished
@@ -186,8 +178,6 @@ public class LevelMenu : MonoBehaviour
             GameObject tbtn = GameObject.Find("level" + (i+1));
             if (tbtn != null)
             {
-//                int tlevelButtonState = GameData.instance.levelStates[GameData.difficulty][i];
-
 				int tlevelButtonState = GameData.instance.levelStates[i];
 
 				if (tlevelButtonState == 1)
@@ -298,23 +288,6 @@ public class LevelMenu : MonoBehaviour
 			UIManager.Instance ().linkDotGO.GetComponent<linkDot.LinkDot> ().init ();
         }
     }
-
-    /// <summary>
-    /// Backs the main scene.
-    /// </summary>
-    public void backMain()
-    {
-		if (UIManager.Instance ().mainMenuPanel == null || GameData.instance.mode == 1) {//this is always for test because you may not start from the initiate window.
-			fadeIn ("MainMenu");
-		} 
-		else 
-		{
-			UIManager.Instance ().mainMenuPanel.transform.DOMoveX (UIManager.Instance ().mainMenuPanel.transform.position.x + Screen.width, 1f).SetEase (Ease.OutBounce).OnComplete (() => { 
-					GameData.instance.currentScene = 0; 
-				});
-		}
-    }
-
     bool canmove = true;//can not enter a level and can not move when moving
                         /// <summary>
                         /// page Goes right.not used

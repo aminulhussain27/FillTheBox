@@ -7,20 +7,10 @@ public class GameData : ScriptableObject
     public int nLink = 0; //check in game.When nlink = 0.All the lines linked,so win.
     public int levelPassed = 0;//how much level you passed
     public int cLevel = 0;//currect level
-    public int bestScore = 0;//bestscore for level
-    public int isSoundOn = 0;//whether game music is on
-    public int isSfxOn = 0;//whether the game sound effect is on
     public static bool isTrial;//not used
     public static string lastWindow = "";//not used
-
-    public int currentScene = 0;
-
-    public int tipRemain = 0;//how much tip you remain
-
-    public static int totalLevel = 15;//total levels,currently,we make things easier,only use 50 levels the same for each difficulty
-//    public List<List<int>> levelStates;
+    public static int totalLevel = 10;//total levels,currently,we make things easier,only use 50 levels the same for each difficulty
 	public List<int> levelStates;
-	public static int difficulty = 0;//easy,
     public int mode = 0;
 
     public static GameData instance;
@@ -50,49 +40,14 @@ public class GameData : ScriptableObject
 
         //reset level pass states
         GameData.instance.levelStates = new List<int>();
-        //load levelState，check which level passed
-//        for (int i = 0; i < GameData.totalLevel.Length; i++)
-//        {
-//            List<int> tStates = new List<int>();
-//		int tStates;
-		//            for (int j = 0; j < GameData.totalLevel[GameData.difficulty]; j++)
-		for (int j = 0; j < GameData.totalLevel; j++)
+
+		for (int j = 0; j < GameData.totalLevel; j++) 
 		{
-                int tState = PlayerPrefs.GetInt("linkdot_" + 1 + "_" + j);//gamename_difficulty_levelnum
-                //if (j == 3 && i == 1) tState = 1;//test
-//                tStates.Add(tState);
-			GameData.instance.levelStates.Add(tState);
-            }
-//            GameData.instance.levelStates.Add(tStates);
-//        }
+			int tState = PlayerPrefs.GetInt ("linkdot_" + 1 + "_" + j);
+		
+			GameData.instance.levelStates.Add (tState);
+		}
     }
-
-
-//    /// <summary>
-//    /// Gets the system laguage.
-//    /// </summary>
-//    /// <returns>The system laguage.</returns>
-//    public int GetSystemLaguage()
-//    {
-//        int returnValue = 0;
-//        switch (Application.systemLanguage)
-//        {
-//            case SystemLanguage.Chinese:
-//                returnValue = 1;
-//                break;
-//            case SystemLanguage.ChineseSimplified:
-//                returnValue = 1;
-//                break;
-//            case SystemLanguage.ChineseTraditional:
-//                returnValue = 1;
-//                break;
-//            default:
-//                returnValue = 0;
-//                break;
-//        }
-//        returnValue = 0;//test
-//        return returnValue;
-//    }
 		
     SimpleJSON.JSONNode levelData;
 

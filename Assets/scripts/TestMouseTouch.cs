@@ -12,7 +12,6 @@ public class TestMouseTouch : MonoBehaviour {
         if (linkdotgame != null)
         {
             //init the level
-            GameData.difficulty = 0;//0-4
             GameData.getInstance().cLevel = 0;//0-49;
 
 
@@ -24,7 +23,6 @@ public class TestMouseTouch : MonoBehaviour {
 
     void linkDotWin()
     {
-        print("win the game");
         GetComponent<MeshRenderer>().material.color = Color.red;
     }
 }

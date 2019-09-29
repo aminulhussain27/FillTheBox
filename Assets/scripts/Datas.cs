@@ -19,7 +19,7 @@ using UnityEngine;
 
             
                
-            datas = Resources.Load<TextAsset>(dataName + "/"+GameData.difficulty);
+            datas = Resources.Load<TextAsset>(dataName + "/"+0);
             string[] lines = new string[0];
             data = new Dictionary<string, Dictionary<string, string>>();
             Dictionary<string, string> loc = new Dictionary<string, string>();

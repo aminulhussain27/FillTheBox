@@ -73,22 +73,25 @@ public class UIManager : MonoBehaviour {
 		else 
 		{
 			all_level.gameObject.SetActive (true);
-
-			all_level.transform.GetComponent<LevelMenu> ().refreshLevel ();
 		}
 	}
 
 	void fadeOut()
 	{
 		mask.gameObject.SetActive(true);
+
 		mask.color = Color.black;
 	}
 
 	void fadeIn(string sceneName)
 	{
-		if (mask.IsActive())
+		if (mask.IsActive ()) 
+		{
 			return;
-		mask.gameObject.SetActive(true);
+		}
+
+		mask.gameObject.SetActive (true);
+
 		mask.color = new Color(0, 0, 0, 0);
 	}
 
@@ -106,6 +109,7 @@ public class UIManager : MonoBehaviour {
 	public void HomeButtonAction()
 	{
 		mainMenuPanel.SetActive (true);
+
 		all_level.SetActive (false);
 	}
 
@@ -115,36 +119,25 @@ public class UIManager : MonoBehaviour {
 
 		GameData.getInstance().levelStates = new List<int>();
 
-//		GameData.instance.levelStates.Add (new int);//new List<int> ());
-
 		for (int j = 0; j < GameData.totalLevel ; j++) 
 		{
 			int tState = PlayerPrefs.GetInt ("linkdot_" + "_" + j, 0);
+
 			GameData.instance.levelStates.Add (tState);
+
 			GameData.getInstance ().levelStates[j] = tState;
 		}
-
-		/*	for (int i = 0; i < GameData.totalLevel.Length; i++) 
-		{
-			GameData.instance.levelStates.Add (new List<int> ());
-			for (int j = 0; j < GameData.totalLevel [i]; j++) {
-				int tState = PlayerPrefs.GetInt ("linkdot_" + i + "_" + j, 0);
-				GameData.instance.levelStates [i].Add (tState);
-				GameData.getInstance ().levelStates [i] [j] = tState;
-			}
-		}*/
 	}
 
 	public void GameWin ()
 	{
-		Debug.Log ("gameWin");
 		StartCoroutine (WinPopUp ());
 	}
 
 
 	IEnumerator WinPopUp()
 	{
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(1.2f);
 
 		UIManager.Instance().linkDotContainer.SetActive (false);
 
@@ -152,9 +145,9 @@ public class UIManager : MonoBehaviour {
 
 		UIManager.Instance().popUp.SetActive(true);
 
-//		GameData.instance.levelStates[GameData.difficulty][GameData.instance.cLevel] = 1;
 		GameData.instance.levelStates[GameData.instance.cLevel] = 1;
-		PlayerPrefs.SetInt("linkdot_" + GameData.difficulty + "_" + GameData.instance.cLevel, 1);
+
+		PlayerPrefs.SetInt("linkdot_" + 0 + "_" + GameData.instance.cLevel, 1);
 
 	}
 }

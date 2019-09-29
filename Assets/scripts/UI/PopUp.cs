@@ -28,7 +28,7 @@ public class PopUp : MonoBehaviour {
 
     private void OnEnable()
     {
-        bool isLastLevel = GameData.instance.cLevel >= GameData.totalLevel-1;
+        bool isLastLevel = GameData.instance.currentLevel >= GameData.totalLevel-1;
 
 		continueButton.gameObject.SetActive(!isLastLevel);
 	}
@@ -38,9 +38,9 @@ public class PopUp : MonoBehaviour {
 	{
 		if (GameData.getInstance ().isWin) 
 		{
-			GameData.instance.cLevel += 1;
+			GameData.instance.currentLevel += 1;
 
-			UIManager.Instance ().linkDotGO.GetComponent<linkDot.LinkDot> ().init ();
+			UIManager.Instance ().linkDotGO.GetComponent<linkDot.ConnectionHandler> ().InitializeGrid ();
         }
 	}
 }

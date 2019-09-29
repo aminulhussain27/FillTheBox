@@ -4,13 +4,13 @@ using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
 namespace linkDot{
-	public class LinkDot : MonoBehaviour {
+	public class ConnectionHandler : MonoBehaviour {
 
-        public void init() 
+        public void InitializeGrid() 
 		{
-			Debug.Log ("Init in LinkDot");
+			Debug.Log ("InitializeGrid");
 
-			UIManager.Instance().levelText.text = (GameData.getInstance().cLevel + 1).ToString();
+			UIManager.Instance().levelText.text = (GameData.getInstance().currentLevel + 1).ToString();
 
 			UIManager.Instance().linkDotContainer.SetActive (true);
 
@@ -52,10 +52,10 @@ namespace linkDot{
                 tbgs.Add(tbg);
 
                 tbg.gameObject.AddComponent<BoxCollider>();
-                tbg.gameObject.AddComponent<TouchDots>();
+                tbg.gameObject.AddComponent<TouchHandler>();
 
-                tbg.gameObject.GetComponent<TouchDots>().tx = tx;
-                tbg.gameObject.GetComponent<TouchDots>().ty = ty;
+                tbg.gameObject.GetComponent<TouchHandler>().tx = tx;
+                tbg.gameObject.GetComponent<TouchHandler>().ty = ty;
 
                 GameData.instance.ColorData[i] = 0;//no color
                 GameData.instance.DotColorData[i] = 0;//no color

@@ -223,7 +223,7 @@ public class LevelMenu : MonoBehaviour
     {
 		Debug.Log ("clickLevel  tbtn: " + tbtn);
 
-        GameData.getInstance().cLevel = int.Parse(tbtn.GetComponentInChildren<Text>().text) - 1;
+        GameData.getInstance().currentLevel = int.Parse(tbtn.GetComponentInChildren<Text>().text) - 1;
 //        if (GameData.instance.mode == 1)//the fade transition for test only
 //        {
 //            if (!isMoving)
@@ -234,7 +234,7 @@ public class LevelMenu : MonoBehaviour
 //        }
 //        else//load level
 //        {
-			UIManager.Instance().linkDotGO.GetComponent<linkDot.LinkDot>().init();
+			UIManager.Instance().linkDotGO.GetComponent<linkDot.ConnectionHandler>().InitializeGrid();
 			if (UIManager.Instance().gamePanel != null)
             {
 				UIManager.Instance().gamePanel.transform.position = Vector2.zero;
@@ -264,15 +264,15 @@ public class LevelMenu : MonoBehaviour
     public void continueLevel()
     {
 
-        int tLastLevel = GameData.getInstance().levelPassed;
+        int tLastLevel = GameData.getInstance().levelCompleted;
 
         if (tLastLevel < GameData.totalLevel)
         {
-            GameData.getInstance().cLevel = tLastLevel;
+            GameData.getInstance().currentLevel = tLastLevel;
         }
         else
         {
-            GameData.getInstance().cLevel = GameData.totalLevel;
+            GameData.getInstance().currentLevel = GameData.totalLevel;
         }
 
         string tstr = "game";// + GameData.getInstance ().cLevel;
@@ -285,7 +285,7 @@ public class LevelMenu : MonoBehaviour
 //        }
 //        else
 //        {
-			UIManager.Instance ().linkDotGO.GetComponent<linkDot.LinkDot> ().init ();
+			UIManager.Instance ().linkDotGO.GetComponent<linkDot.ConnectionHandler> ().InitializeGrid ();
 //        }
     }
     bool canmove = true;//can not enter a level and can not move when moving

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace linkDot{
-	public class TouchDots : MonoBehaviour 
+	public class TouchHandler : MonoBehaviour 
 	{
 		public int tx,ty;
 		bool colorPath = false;

@@ -5,14 +5,33 @@ using UnityEngine;
 public class GameData : ScriptableObject
 {
     public int nLink = 0; //check in game.When nlink = 0.All the lines linked,so win.
-    public int levelPassed = 0;//how much level you passed
-    public int cLevel = 0;//currect level
-    
-    public static int totalLevel = 10;//total levels,currently,we make things easier,only use 50 levels the same for each difficulty
+    public int levelCompleted = 0;//how much level you passed
+    public int currentLevel = 0;//currect level
+	public int startId = -1;
+	public int lasttx = -1;
+	public int lastty = -1;
+	public int winLinkCount;//how many linkage requires to win(commonly its half of the number of dots)
+	public int pickColor = -1;
+
+	public int[] ColorData;
+	public int[] DotColorData;
+	public int[] linkedLines;//check all colors whehter connected or not
+
 	public List<int> levelStates;
-	public bool isWin = false;//check if win
 	public List<int> lvStar = new List<int>();//level stars you got for each level
+	public List<List<int>> paths;
+    
+	public static int totalLevel = 10;//total levels,currently,we make things easier,only use 50 levels the same for each difficulty
+	public static int bsize = 6;
+
+
+	public bool isWin = false;//check if win
 	public bool isfail = false;//whether the game failed
+	public bool isHolding = false;
+
+	public Color[] colors;
+
+	public SimpleJSON.JSONNode dotPoses;
 
 	private SimpleJSON.JSONNode levelData;
 
@@ -46,7 +65,7 @@ public class GameData : ScriptableObject
 
     public void InitializeGameData()
     {
-        string tData = Datas.CreateInstance<Datas>().GetData()[GameData.instance.cLevel];//Getting the TextAsset data A/C level
+        string tData = Datas.CreateInstance<Datas>().GetData()[GameData.instance.currentLevel];//Getting the TextAsset data A/C level
         levelData = SimpleJSON.JSONArray.Parse(tData);
 
         bsize = int.Parse(levelData["r"]);
@@ -74,37 +93,9 @@ public class GameData : ScriptableObject
         linkedLines = new int[GameData.instance.paths.Count+1];
     }
 		
-    public bool isHolding = false;
-    public int pickColor = -1;
-
-//    [HideInInspector]
-    public SimpleJSON.JSONNode dotPoses;
-//    [HideInInspector]
-    public int[] ColorData;
-//    [HideInInspector]
-    public int[] DotColorData;
-//    [HideInInspector]
-    public Color[] colors;
-//    [HideInInspector]
-    public int startId = -1;
-//    [HideInInspector]
-    public int lasttx = -1;
-//    [HideInInspector]
-    public int lastty = -1;
-//    [HideInInspector]
-    public List<List<int>> paths;
-//    [HideInInspector]
-    public int[] linkedLines;//check all colors whehter links
-//    [HideInInspector]
-    public static int bsize = 6;
-//    [HideInInspector]
-    public int winLinkCount;//how many linkage requires to win(commonly its half of the number of dots)
-
-
     public void ClearData()
     {
-		Transform tcontainer = UIManager.Instance ().linkDotContainer.transform;
-        foreach(Transform tobj in tcontainer)
+		foreach(Transform tobj in UIManager.Instance ().linkDotContainer.transform)
         {
             Destroy(tobj.gameObject);
         }     

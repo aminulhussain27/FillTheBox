@@ -135,9 +135,9 @@ public class UIManager : MonoBehaviour {
 
 		UIManager.Instance().popUp.SetActive(true);
 
-		GameData.instance.levelStates[GameData.instance.cLevel] = 1;
+		GameData.instance.levelStates[GameData.instance.currentLevel] = 1;
 
-		PlayerPrefs.SetInt("linkdot_" + 0 + "_" + GameData.instance.cLevel, 1);
+		PlayerPrefs.SetInt("linkdot_" + 0 + "_" + GameData.instance.currentLevel, 1);
 
 	}
 }

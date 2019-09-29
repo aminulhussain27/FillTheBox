@@ -1063,7 +1063,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CONGRATULATION!      LEVEL COMPLETE
+  m_Text: LEVEL COMPLETE!
 --- !u!222 &601421727
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3579,6 +3579,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df555880eafc52844a2f29a2a009c8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  squarePrefab: {fileID: 1437319883242464, guid: 34e4237d7a12a294b92ff0f445517ea8,
+    type: 2}
+  dotPrefab: {fileID: 1623756983462112, guid: bc3f31548bd13cd469d8b1e4020b85ad, type: 2}
+  connectorPrefab: {fileID: 1365832343899492, guid: ea2773331d550fa4da6922abb4155bb2,
+    type: 2}
 --- !u!212 &1493863506
 SpriteRenderer:
   m_ObjectHideFlags: 0

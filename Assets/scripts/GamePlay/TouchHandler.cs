@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace linkDot{
 	public class TouchHandler : MonoBehaviour 
 	{
 		public int tx,ty;
@@ -159,15 +158,15 @@ namespace linkDot{
 					//current block color;
 					int tColorid = GameData.instance.ColorData [id];
 
-					if ((tdotColor == 0 && tColorid == 0) || GameData.instance.pickColor == tdotColor && GameData.instance.paths[tdotColor][0] != id) {//all places which can be draw and have not draw on something
+				if ((tdotColor == 0 && tColorid == 0) || GameData.instance.pickColor == tdotColor && GameData.instance.paths [tdotColor] [0] != id) 
+				{//all places which can be draw and have not draw on something
 						
-						//exclude not nearby blocks
-						if ((Mathf.Abs (tx - GameData.instance.lasttx) == 1 && ty == GameData.instance.lastty) ||
-							(Mathf.Abs (ty - GameData.instance.lastty) == 1 && tx == GameData.instance.lasttx)) 
-						{
-							AddColor ();
-						}
-					} 
+					//exclude not nearby blocks
+					if ((Mathf.Abs (tx - GameData.instance.lasttx) == 1 && ty == GameData.instance.lastty) ||
+					     (Mathf.Abs (ty - GameData.instance.lastty) == 1 && tx == GameData.instance.lasttx)) {
+						AddColor ();
+					}
+				}
 					else 
 					{
 						//draw on an already exist self color path
@@ -472,4 +471,3 @@ namespace linkDot{
 			}
 		}
 	}
-}

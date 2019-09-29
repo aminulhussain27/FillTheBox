@@ -12,8 +12,8 @@ public class PopUp : MonoBehaviour {
 	{
 		menuButton.onClick.RemoveAllListeners ();
 		menuButton.onClick.AddListener (() => {
+			
 				transform.gameObject.SetActive (false);
-
 				UIManager.Instance ().mainMenuPanel.SetActive (true);
 				UIManager.Instance ().all_level.SetActive (true);
 
@@ -40,7 +40,7 @@ public class PopUp : MonoBehaviour {
 		{
 			GameData.instance.currentLevel += 1;
 
-			UIManager.Instance ().linkDotGO.GetComponent<linkDot.ConnectionHandler> ().InitializeGrid ();
+			UIManager.Instance ().linkDotGO.GetComponent<ConnectionHandler> ().InitializeGrid ();
         }
 	}
 }

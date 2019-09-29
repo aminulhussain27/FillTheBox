@@ -9,7 +9,7 @@ public class Datas :ScriptableObject
 
     public string[] GetData()
 	{
-		datas = Resources.Load<TextAsset> ("Prefabs/JsonData");// Loading the Json text file
+		datas = Resources.Load<TextAsset> ("Data/JsonData");// Loading the Json text file
 
 		string[] lines = new string[0];
 

@@ -1,9 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\GamePlay\TouchDots.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\GamePlay\LinkDot.cs">
     <Files>
-      <File FileName="Assets\scripts\GamePlay\GameData.cs" Line="68" Column="3" />
-      <File FileName="Assets\scripts\GamePlay\TouchDots.cs" Line="272" Column="1" />
+      <File FileName="Assets\scripts\GamePlay\GameData.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\GamePlay\TouchDots.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\UI\LevelMenu.cs" Line="290" Column="6" />
+      <File FileName="Assets\scripts\UI\UIManager.cs" Line="76" Column="1" />
+      <File FileName="Assets\scripts\UI\PopUp.cs" Line="33" Column="1" />
+      <File FileName="Assets\scripts\GamePlay\LinkDot.cs" Line="159" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

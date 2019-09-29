@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace linkDot{
-	public class TouchDots : MonoBehaviour {
+	public class TouchDots : MonoBehaviour 
+	{
 		public int tx,ty;
 		bool colorPath = false;
-		// Use this for initialization
 		int id;
-		void Start () {
+		void Start () 
+		{
           
 			id = ty * GameData.bsize + tx;
         }
@@ -40,7 +41,7 @@ namespace linkDot{
 
 				GameData.instance.paths[tdotColor] = new List<int> ();//overwrite the old path
 //				GameData.instance.paths[tdotColor].Add (id);
-				addPath(tdotColor,id);
+				AddPath(tdotColor,id);
 			} 
 			else 
 			{
@@ -65,15 +66,15 @@ namespace linkDot{
 							int oldx = Mathf.FloorToInt (oldid % GameData.bsize) ;
 							int oldy = Mathf.FloorToInt (oldid / GameData.bsize);
 
-							GameObject oldBg = GameObject.Find ("bg" + oldx + "_" + oldy);
+							GameObject oldBg = GameObject.Find ("Dot" + oldx + "_" + oldy);
 
 							Color tcolor = GameData.instance.colors [0];
 							//tcolor.a = 1f;
 							oldBg.transform.GetComponent<SpriteRenderer> ().color = tcolor;
 							GameData.instance.ColorData [oldid] = 0;
 
-							removePath(cBlockColor,i);
-							addPath(cBlockColor,id);
+							RemovePath(cBlockColor,i);
+							AddPath(cBlockColor,id);
 						}
 						else 
 						{
@@ -88,7 +89,7 @@ namespace linkDot{
 			GameData.instance.lasttx = tx;
 			GameData.instance.lastty = ty;
 
-            checkWin();
+            CheckForPossibleWinning();
         }
 
 
@@ -105,13 +106,13 @@ namespace linkDot{
 				int oldx = Mathf.FloorToInt (oldid % GameData.bsize) ;
 				int oldy = Mathf.FloorToInt (oldid / GameData.bsize);
 
-					GameObject oldBg = GameObject.Find ("bg" + oldx + "_" + oldy);
+					GameObject oldBg = GameObject.Find ("Dot" + oldx + "_" + oldy);
 
 					Color tcolor = GameData.instance.colors [0];
 					oldBg.transform.GetComponent<SpriteRenderer> ().color = tcolor;
 					GameData.instance.ColorData [oldid] = 0;
 
-				removePath(tcolorid,GameData.instance.paths[tcolorid].Count-1);
+				RemovePath(tcolorid,GameData.instance.paths[tcolorid].Count-1);
 				//reopen the linkage
 				GameData.instance.linkedLines[tcolorid] = 0;
 			}
@@ -135,7 +136,7 @@ namespace linkDot{
 						if ((Mathf.Abs (tx - GameData.instance.lasttx) == 1 && ty == GameData.instance.lastty) ||
 							(Mathf.Abs (ty - GameData.instance.lastty) == 1 && tx == GameData.instance.lasttx)) 
 						{
-							addColor ();
+							AddColor ();
 						}
 					} 
 					else 
@@ -158,11 +159,11 @@ namespace linkDot{
 									{
 										int oldx = Mathf.FloorToInt (oldId % GameData.bsize) ;
 										int oldy = Mathf.FloorToInt (oldId / GameData.bsize);
-										GameObject oldBg = GameObject.Find ("bg" + oldx + "_" + oldy);
+										GameObject oldBg = GameObject.Find ("Dot" + oldx + "_" + oldy);
 
 										Color tcolor = GameData.instance.colors [0];
 										oldBg.transform.GetComponent<SpriteRenderer> ().color = tcolor;
-										removePath(tColorid,GameData.instance.paths[tColorid].Count-1);
+										RemovePath(tColorid,GameData.instance.paths[tColorid].Count-1);
 											GameData.instance.ColorData [oldId] = 0;
 
 											//next prev id
@@ -190,12 +191,12 @@ namespace linkDot{
 									
 												int oldx = Mathf.FloorToInt (oldId % GameData.bsize);
 												int oldy = Mathf.FloorToInt (oldId / GameData.bsize);
-												GameObject oldBg = GameObject.Find ("bg" + oldx + "_" + oldy);
+												GameObject oldBg = GameObject.Find ("Dot" + oldx + "_" + oldy);
 
 												Color tcolor = GameData.instance.colors [0];
 												oldBg.transform.GetComponent<SpriteRenderer> ().color = tcolor;
 //												GameData.instance.paths [tOtherColorId].RemoveAt (GameData.instance.paths [tOtherColorId].Count - 1);
-												removePath(tOtherColorId,GameData.instance.paths[tOtherColorId].Count-1);
+												RemovePath(tOtherColorId,GameData.instance.paths[tOtherColorId].Count-1);
 												GameData.instance.ColorData [oldId] = 0;
 
 												//next prev id
@@ -207,12 +208,12 @@ namespace linkDot{
 											{
 												int oldx = Mathf.FloorToInt (oldId % GameData.bsize);
 												int oldy = Mathf.FloorToInt (oldId / GameData.bsize);
-												GameObject oldBg = GameObject.Find ("bg" + oldx + "_" + oldy);
+												GameObject oldBg = GameObject.Find ("Dot" + oldx + "_" + oldy);
 
 												Color tcolor = GameData.instance.colors [0];
 												oldBg.transform.GetComponent<SpriteRenderer> ().color = tcolor;
 //												GameData.instance.paths [tOtherColorId].RemoveAt (GameData.instance.paths [tOtherColorId].Count - 1);
-												removePath(tOtherColorId,GameData.instance.paths[tOtherColorId].Count-1);
+												RemovePath(tOtherColorId,GameData.instance.paths[tOtherColorId].Count-1);
 												GameData.instance.ColorData [oldId] = 0;
 
 											}
@@ -224,13 +225,13 @@ namespace linkDot{
 					}
 
 				}
-				checkWin ();
+				CheckForPossibleWinning ();
 			}//if holding
 		}
 
 
 
-		void addColor()
+		private void AddColor()
 		{
 			int tdotColor = GameData.instance.DotColorData [id];
 
@@ -248,7 +249,7 @@ namespace linkDot{
                 transform.GetComponent<SpriteRenderer>().color = tcolor;
             }
 
-			addPath(GameData.instance.pickColor,id);
+			AddPath(GameData.instance.pickColor,id);
 
 			GameData.instance.ColorData [id] = GameData.instance.pickColor;//write color to data
 
@@ -279,7 +280,7 @@ namespace linkDot{
             yield return new WaitForSeconds(.2f);
             canPlatDotSfx = true;
         }
-		void addPath(int colorId,int placeId){
+		void AddPath(int colorId,int placeId){
            
             if (canPlatDotSfx)
             {
@@ -309,13 +310,13 @@ namespace linkDot{
 				int tDown = -GameData.bsize;
 				GameObject tlink = null;
 				if (placeOffset == 1) {//right
-					tlink = GameObject.Find("linkr"+tx+"_"+ty);
+					tlink = GameObject.Find("ConnectorRight"+tx+"_"+ty);
 				} else if (placeOffset == -1) {
-					tlink = GameObject.Find("linkl"+tx+"_"+ty);
+					tlink = GameObject.Find("ConnectorLeft"+tx+"_"+ty);
 				} else if (placeOffset == tUp) {
-					tlink = GameObject.Find("linku"+tx+"_"+ty);
+					tlink = GameObject.Find("ConnectorUp"+tx+"_"+ty);
 				} else if (placeOffset == tDown) {
-					tlink = GameObject.Find("linkd"+tx+"_"+ty);
+					tlink = GameObject.Find("ConnectorDown"+tx+"_"+ty);
 				}
 				if (tlink != null) {
 					tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [colorId];
@@ -324,39 +325,39 @@ namespace linkDot{
 
 		}
 
-		void removePath(int colorId,int index){
-			
-
-
-			//clear all linkage on this node
+		private void RemovePath(int colorId,int index)
+		{
+			//clear all the connections on this node
 			int tlastId = GameData.instance.paths [colorId] [index];
-							int tx = Mathf.FloorToInt (tlastId % GameData.bsize);
-							int ty = Mathf.FloorToInt (tlastId / GameData.bsize);
-							GameObject tlink = null;
-							tlink = GameObject.Find ("linkr" + tx + "_" + ty);
-							tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
-							tlink = GameObject.Find ("linkl" + tx + "_" + ty);
-							tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
-							tlink = GameObject.Find ("linku" + tx + "_" + ty);
-							tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
-							tlink = GameObject.Find ("linkd" + tx + "_" + ty);
-							tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
+
+			GameObject tlink = null;
+			int tx = Mathf.FloorToInt (tlastId % GameData.bsize);
+			int ty = Mathf.FloorToInt (tlastId / GameData.bsize);
+			tlink = GameObject.Find ("ConnectorDown" + tx + "_" + ty);
+			tlink = GameObject.Find ("ConnectorLeft" + tx + "_" + ty);
+			tlink = GameObject.Find ("ConnectorRight" + tx + "_" + ty);
+			tlink = GameObject.Find ("ConnectorUp" + tx + "_" + ty);
+			tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
+			tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
+			tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
+			tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
 
 
 			GameData.instance.paths[colorId].RemoveAt (index);
 
-			if (index > 0) {
+			if (index > 0) 
+			{
 				tlastId = GameData.instance.paths [colorId] [index - 1];
 				tx = Mathf.FloorToInt (tlastId % GameData.bsize);
 				ty = Mathf.FloorToInt (tlastId / GameData.bsize);
 	
-				tlink = GameObject.Find ("linkr" + tx + "_" + ty);
+				tlink = GameObject.Find ("ConnectorRight" + tx + "_" + ty);
 				tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
-				tlink = GameObject.Find ("linkl" + tx + "_" + ty);
+				tlink = GameObject.Find ("ConnectorLeft" + tx + "_" + ty);
 				tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
-				tlink = GameObject.Find ("linku" + tx + "_" + ty);
+				tlink = GameObject.Find ("ConnectorUp" + tx + "_" + ty);
 				tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
-				tlink = GameObject.Find ("linkd" + tx + "_" + ty);
+				tlink = GameObject.Find ("ConnectorDown" + tx + "_" + ty);
 				tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [0];
 			}
 
@@ -365,7 +366,7 @@ namespace linkDot{
         }
 
    
-		void checkWin()
+		void CheckForPossibleWinning()
 		{
 			int nwin = 0;
 			for (int k = 0; k < GameData.instance.linkedLines.Length; k++) 

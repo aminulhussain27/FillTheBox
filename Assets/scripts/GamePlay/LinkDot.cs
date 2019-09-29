@@ -6,25 +6,22 @@ using DG.Tweening;
 namespace linkDot{
 	public class LinkDot : MonoBehaviour {
 
-		void Start () {
-            
-		}
-
         public void init() 
 		{
-           
 			Debug.Log ("Init in LinkDot");
 
 			UIManager.Instance().levelText.text = (GameData.getInstance().cLevel + 1).ToString();
 
 			UIManager.Instance().linkDotContainer.SetActive (true);
 
-            GameData.getInstance().clearData();
-            GameData.instance.resetData();
+            GameData.getInstance().ClearData();
+         
+			GameData.instance.ResetData();
+
 			GameData.getInstance().InitializeGameData();
 
 
-            GameObject tBg = Resources.Load("linkdots/square") as GameObject;
+            GameObject tBg = Resources.Load("Prefabs/square") as GameObject;
             float gridW = GetComponent<SpriteRenderer>().sprite.bounds.size.x / GameData.bsize;
             
             float orginSize = tBg.GetComponent<SpriteRenderer>().bounds.size.x;
@@ -33,8 +30,8 @@ namespace linkDot{
 
             float gap = tBg.GetComponent<SpriteRenderer>().bounds.size.x * (1f - tscale);
 
-            GameObject tCircle = Resources.Load("linkdots/dot") as GameObject;
-            GameObject tLink = Resources.Load("linkdots/link") as GameObject;
+            GameObject tCircle = Resources.Load("Prefabs/dot") as GameObject;
+            GameObject tLink = Resources.Load("Prefabs/Connector") as GameObject;
 
 
             float offsetx = -1 * gridW * GameData.bsize / 2 + gridW / 2;// 0;// gridW * 3f;
@@ -50,7 +47,7 @@ namespace linkDot{
                 tbg.transform.localScale *= tscale;
 				tbg.transform.localPosition = new Vector2(UIManager.Instance().linkDotContainer.transform.localPosition.x + gridW * tx + offsetx, UIManager.Instance().linkDotContainer.transform.localPosition.y + gridW * ty + offsety);
                 tbg.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                tbg.name = "bg" + tx + "_" + ty;
+                tbg.name = "Dot" + tx + "_" + ty;
                 tbg.GetComponent<SpriteRenderer>().color = Color.clear;
                 tbgs.Add(tbg);
 
@@ -77,16 +74,16 @@ namespace linkDot{
                     switch (j)
                     {
                         case 0://right
-                            tlink.name = "linkr" + tx + "_" + ty;
+                            tlink.name = "ConnectorRight" + tx + "_" + ty;
                             break;
                         case 1://up
-                            tlink.name = "linku" + tx + "_" + ty;
+                            tlink.name = "ConnectorUp" + tx + "_" + ty;
                             break;
                         case 2://left
-                            tlink.name = "linkl" + tx + "_" + ty;
+                            tlink.name = "ConnectorLeft" + tx + "_" + ty;
                             break;
                         case 3://down
-                            tlink.name = "linkd" + tx + "_" + ty;
+                            tlink.name = "ConnectorDown" + tx + "_" + ty;
                             break;
                     }
                 }

@@ -20,7 +20,7 @@ public class LevelMenu : MonoBehaviour
     void Start()
     {
 		UIManager.Instance ().Init ();
-		GameData.getInstance().resetData();
+		GameData.getInstance().ResetData();
 
         initLevels();
 	}
@@ -35,18 +35,18 @@ public class LevelMenu : MonoBehaviour
 
     }
 
-    bool isMoving = false;
-    public void move(float dis)
-    {
-        if (canmove)
-        {
-//            foreach (Transform m in mainContainer.transform)
-//            {
-//                m.transform.Translate(dis, 0, 0);
-//            }
-            isMoving = true;
-        }
-    }
+//    bool isMoving = false;
+//    public void move(float dis)
+//    {
+//        if (canmove)
+//        {
+////            foreach (Transform m in mainContainer.transform)
+////            {
+////                m.transform.Translate(dis, 0, 0);
+////            }
+//            isMoving = true;
+//        }
+//    }
 
     /// <summary>
     /// simulate Swipes the page to is right position
@@ -124,7 +124,7 @@ public class LevelMenu : MonoBehaviour
     IEnumerator swiped()
     {
         yield return new WaitForEndOfFrame();
-        isMoving = false;
+//        isMoving = false;
     }
 
     public GameObject levelButton;//the level button template instance

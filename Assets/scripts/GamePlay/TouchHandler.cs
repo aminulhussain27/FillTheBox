@@ -16,7 +16,7 @@ using UnityEngine;
 
 		void OnMouseDown () 
 		{
-			Debug.Log ("void OnMouseDown () ");
+//			Debug.Log ("void OnMouseDown () ");
 
 			if (GameData.instance.isWin) 
 			{
@@ -34,7 +34,7 @@ using UnityEngine;
 			if (tdotColor != 0) 
 			{
 				//got a dot here
-				clearOldPath(tdotColor);
+				ClearOldPath(tdotColor);
 
 				GameData.instance.pickColor = tdotColor;
 
@@ -110,9 +110,10 @@ using UnityEngine;
         }
 
 
-		void clearOldPath(int tcolorid)
+	//Clearing if any old paths are there 
+		void ClearOldPath(int tcolorid)
 		{
-			Debug.Log ("clearOldPath: " + tcolorid);
+//			Debug.Log ("clearOldPath: " + tcolorid);
 
 			int tlen = GameData.instance.paths[tcolorid].Count;
 
@@ -163,7 +164,8 @@ using UnityEngine;
 						
 					//exclude not nearby blocks
 					if ((Mathf.Abs (tx - GameData.instance.lasttx) == 1 && ty == GameData.instance.lastty) ||
-					     (Mathf.Abs (ty - GameData.instance.lastty) == 1 && tx == GameData.instance.lasttx)) {
+					     (Mathf.Abs (ty - GameData.instance.lastty) == 1 && tx == GameData.instance.lasttx)) 
+					{
 						AddColor ();
 					}
 				}
@@ -320,31 +322,22 @@ using UnityEngine;
 		}
 
 
-        static bool canPlatDotSfx = true;//make draw sound effect not be too frequent;
-        
-		IEnumerator sfxGap()
-        {
-            yield return new WaitForSeconds(.2f);
-
-            canPlatDotSfx = true;
-        }
+//        static bool canPlatDotSfx = true;//make draw sound effect not be too frequent;
+//        
+//		IEnumerator sfxGap()
+//        {
+//            yield return new WaitForSeconds(.2f);
+//
+//            canPlatDotSfx = true;
+//        }
 
 		void AddPath(int colorId,int placeId)
 		{
+//		Debug.Log ("Path added");
            
-            if (canPlatDotSfx)
-            {
-                string tsfx = "d" + Mathf.FloorToInt(Random.Range(0, 6));
+		GameData.instance.paths [colorId].Add (placeId);
 
-                canPlatDotSfx = false;
-
-                StartCoroutine("sfxGap");
-            }
-           
-
-            GameData.instance.paths[colorId].Add (placeId);
-
-			int tlen = GameData.instance.paths [colorId].Count;
+		int tlen = GameData.instance.paths [colorId].Count;
 
 			if (tlen > 1) 
 			{
@@ -384,15 +377,17 @@ using UnityEngine;
 				{
 					tlink = GameObject.Find("ConnectorDown"+tx+"_"+ty);
 				}
-				if (tlink != null) 
-				{
-					tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [colorId];
-				}
+			if (tlink != null) 
+			{
+				tlink.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [colorId];
+				SoundManager.Instance ().playSound (SoundManager.SOUND_ID.TOUCH);
+			}
 			}
 		}
 
 		private void RemovePath(int colorId,int index)
 		{
+		
 			//clear all the connections on this node
 			int tlastId = GameData.instance.paths [colorId] [index];
 
@@ -450,6 +445,7 @@ using UnityEngine;
 			
 		private void CheckForPossibleWinning()
 		{
+
 			int nwin = 0;
 
 			for (int k = 0; k < GameData.instance.linkedLines.Length; k++) 

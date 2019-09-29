@@ -32,8 +32,6 @@ public class LevelHandler : MonoBehaviour
 
     void Start()
     {
-		UIManager.Instance ().Init ();
-
 		GameData.getInstance().ResetData();
 
         InitializeLevels();
@@ -101,7 +99,9 @@ public class LevelHandler : MonoBehaviour
     // Clicks the level button.
     void ClickLevel(GameObject tbtn)
     {
-		Debug.Log ("clickLevel  tbtn: " + tbtn);
+//		Debug.Log ("clickLevel  tbtn: " + tbtn);
+
+		SoundManager.Instance ().playSound (SoundManager.SOUND_ID.CLICK);
 
         GameData.getInstance().currentLevel = int.Parse(tbtn.GetComponentInChildren<Text>().text) - 1;
 

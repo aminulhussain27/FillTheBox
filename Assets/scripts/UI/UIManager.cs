@@ -43,22 +43,26 @@ public class UIManager : MonoBehaviour {
 
 	void Start()
 	{
-		Init ();
 
 		playButton.onClick.RemoveAllListeners ();
 		playButton.onClick.AddListener (() => {
+			SoundManager.Instance ().playSound (SoundManager.SOUND_ID.CLICK);
 				StartButtonAction ();
 			});
 
 		selectLevelButton.onClick.RemoveAllListeners ();
 		selectLevelButton.onClick.AddListener (() => {
+			SoundManager.Instance ().playSound (SoundManager.SOUND_ID.CLICK);
 			mainMenuPanel.SetActive (true);
 			});
 		
 		home.onClick.RemoveAllListeners ();
 		home.onClick.AddListener (() => {
+			SoundManager.Instance ().playSound (SoundManager.SOUND_ID.CLICK);
 				HomeButtonAction ();
 			});
+	
+		SoundManager.Instance ().playSound (SoundManager.SOUND_ID.LOOP_BACKGROUND, 1, true);
 	}
 
 	public void StartButtonAction()
@@ -66,57 +70,41 @@ public class UIManager : MonoBehaviour {
 		all_level.SetActive (true);
 	}
 
-	void fadeOut()
-	{
-		mask.gameObject.SetActive(true);
+//	void fadeOut()
+//	{
+//		mask.gameObject.SetActive(true);
+//
+//		mask.color = Color.black;
+//	}
 
-		mask.color = Color.black;
-	}
-
-	void fadeIn(string sceneName)
-	{
-		if (mask.IsActive ()) 
-		{
-			return;
-		}
-
-		mask.gameObject.SetActive (true);
-
-		mask.color = new Color(0, 0, 0, 0);
-	}
-
-
-	void fadeOutOver()
-	{
-		mask.gameObject.SetActive(false);
-	}
-
-	void OnUpdateTween(float value)
-	{
-		mask.color = new Color(0, 0, 0, value);
-	}
+//	void fadeIn(string sceneName)
+//	{
+//		if (mask.IsActive ()) 
+//		{
+//			return;
+//		}
+//
+//		mask.gameObject.SetActive (true);
+//
+//		mask.color = new Color(0, 0, 0, 0);
+//	}
+//
+//
+//	void fadeOutOver()
+//	{
+//		mask.gameObject.SetActive(false);
+//	}
+//
+//	void OnUpdateTween(float value)
+//	{
+//		mask.color = new Color(0, 0, 0, value);
+//	}
 
 	public void HomeButtonAction()
 	{
 		mainMenuPanel.SetActive (true);
 
 		all_level.SetActive (false);
-	}
-
-	public void Init()
-	{
-//		Debug.Log ("init in UIManager");
-//
-//		GameData.getInstance().levelStates = new List<int>();
-//
-//		for (int j = 0; j < GameData.totalLevel ; j++) 
-//		{
-//			int tState = PlayerPrefs.GetInt ("linkdot_" + "_" + j, 0);
-//
-//			GameData.instance.levelStates.Add (tState);
-//
-//			GameData.getInstance ().levelStates[j] = tState;
-//		}
 	}
 
 	public void GameWin ()
@@ -127,7 +115,9 @@ public class UIManager : MonoBehaviour {
 
 	IEnumerator WinPopUp()
 	{
-		yield return new WaitForSeconds(1.2f);
+		SoundManager.Instance ().playSound (SoundManager.SOUND_ID.WIN);
+
+		yield return new WaitForSeconds(0.8f);
 
 		UIManager.Instance().linkDotContainer.SetActive (false);
 

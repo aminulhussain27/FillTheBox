@@ -12,7 +12,7 @@ public class ConnectionHandler : MonoBehaviour
 
   public void InitializeGrid()
 	{
-		Debug.Log ("InitializeGrid");
+//		Debug.Log ("InitializeGrid");
 
 		UIManager.Instance ().selectLevelButton.interactable = false;
 
@@ -27,6 +27,8 @@ public class ConnectionHandler : MonoBehaviour
 		GameData.getInstance ().InitializeGameData ();
 
 		StartCoroutine (InitializeDots ());
+
+		SoundManager.Instance ().playSound (SoundManager.SOUND_ID.LEVEL_LOADED, 0.5f);
 	}
 
 	IEnumerator InitializeDots()

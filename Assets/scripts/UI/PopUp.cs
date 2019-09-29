@@ -12,7 +12,8 @@ public class PopUp : MonoBehaviour {
 	{
 		menuButton.onClick.RemoveAllListeners ();
 		menuButton.onClick.AddListener (() => {
-			
+
+			    SoundManager.Instance ().playSound (SoundManager.SOUND_ID.CLICK);
 				transform.gameObject.SetActive (false);
 				UIManager.Instance ().mainMenuPanel.SetActive (true);
 				UIManager.Instance ().all_level.SetActive (true);
@@ -36,6 +37,7 @@ public class PopUp : MonoBehaviour {
 	
 	public void ContinueButtonAction()
 	{
+		SoundManager.Instance ().playSound (SoundManager.SOUND_ID.CLICK);
 		if (GameData.getInstance ().isWin) 
 		{
 			GameData.instance.currentLevel += 1;

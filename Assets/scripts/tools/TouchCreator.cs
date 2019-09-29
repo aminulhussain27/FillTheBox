@@ -19,6 +19,8 @@ public class TouchCreator
 
 	public Touch Create()
 	{
+		Debug.Log ("public Touch Create ");
+
 		return (Touch)touch;
 	}
 
@@ -29,6 +31,7 @@ public class TouchCreator
 
 	static TouchCreator()
 	{
+		Debug.Log ("TouchCreator");
 		fields = new Dictionary<string, FieldInfo>();
 		foreach(var f in typeof(Touch).GetFields(BindingFlags.Instance | BindingFlags.NonPublic))
 		{

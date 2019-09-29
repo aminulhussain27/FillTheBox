@@ -29,7 +29,7 @@ public class PopUp : MonoBehaviour {
     private void OnEnable()
     {
 
-        bool isLastLevel = GameData.instance.cLevel >= GameData.totalLevel[GameData.difficulty]-1;
+        bool isLastLevel = GameData.instance.cLevel >= GameData.totalLevel-1;
 
 		continueButton.gameObject.SetActive(!isLastLevel);
 	}

@@ -17,9 +17,10 @@ public class GameData : ScriptableObject
 
     public int tipRemain = 0;//how much tip you remain
 
-    public static int[] totalLevel = {50,50,50,50,50};//total levels,currently,we make things easier,only use 50 levels the same for each difficulty
-    public List<List<int>> levelStates;
-    public static int difficulty = 0;//easy,
+    public static int totalLevel = 15;//total levels,currently,we make things easier,only use 50 levels the same for each difficulty
+//    public List<List<int>> levelStates;
+	public List<int> levelStates;
+	public static int difficulty = 0;//easy,
     public int mode = 0;
 
     public static GameData instance;
@@ -45,23 +46,25 @@ public class GameData : ScriptableObject
         isWin = false;
         isfail = false;
 
-        tipRemain = PlayerPrefs.GetInt("tipRemain", 3);
         tickStartTime = PlayerPrefs.GetString("tipStart", "0");
 
         //reset level pass states
-        GameData.instance.levelStates = new List<List<int>>();
+        GameData.instance.levelStates = new List<int>();
         //load levelState，check which level passed
-        for (int i = 0; i < GameData.totalLevel.Length; i++)
-        {
-            List<int> tStates = new List<int>();
-            for (int j = 0; j < GameData.totalLevel[GameData.difficulty]; j++)
-            {
-                int tState = PlayerPrefs.GetInt("linkdot_" + i + "_" + j);//gamename_difficulty_levelnum
+//        for (int i = 0; i < GameData.totalLevel.Length; i++)
+//        {
+//            List<int> tStates = new List<int>();
+//		int tStates;
+		//            for (int j = 0; j < GameData.totalLevel[GameData.difficulty]; j++)
+		for (int j = 0; j < GameData.totalLevel; j++)
+		{
+                int tState = PlayerPrefs.GetInt("linkdot_" + 1 + "_" + j);//gamename_difficulty_levelnum
                 //if (j == 3 && i == 1) tState = 1;//test
-                tStates.Add(tState);
+//                tStates.Add(tState);
+			GameData.instance.levelStates.Add(tState);
             }
-            GameData.instance.levelStates.Add(tStates);
-        }
+//            GameData.instance.levelStates.Add(tStates);
+//        }
     }
 
 

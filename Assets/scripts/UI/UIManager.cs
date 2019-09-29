@@ -113,8 +113,18 @@ public class UIManager : MonoBehaviour {
 	{
 		Debug.Log ("init in UIManager");
 
-		GameData.getInstance().levelStates = new List<List<int>>();
-		for (int i = 0; i < GameData.totalLevel.Length; i++) 
+		GameData.getInstance().levelStates = new List<int>();
+
+//		GameData.instance.levelStates.Add (new int);//new List<int> ());
+
+		for (int j = 0; j < GameData.totalLevel ; j++) 
+		{
+			int tState = PlayerPrefs.GetInt ("linkdot_" + "_" + j, 0);
+			GameData.instance.levelStates.Add (tState);
+			GameData.getInstance ().levelStates[j] = tState;
+		}
+
+		/*	for (int i = 0; i < GameData.totalLevel.Length; i++) 
 		{
 			GameData.instance.levelStates.Add (new List<int> ());
 			for (int j = 0; j < GameData.totalLevel [i]; j++) {
@@ -122,7 +132,7 @@ public class UIManager : MonoBehaviour {
 				GameData.instance.levelStates [i].Add (tState);
 				GameData.getInstance ().levelStates [i] [j] = tState;
 			}
-		}
+		}*/
 	}
 
 	public void GameWin ()
@@ -142,7 +152,8 @@ public class UIManager : MonoBehaviour {
 
 		UIManager.Instance().popUp.SetActive(true);
 
-		GameData.instance.levelStates[GameData.difficulty][GameData.instance.cLevel] = 1;
+//		GameData.instance.levelStates[GameData.difficulty][GameData.instance.cLevel] = 1;
+		GameData.instance.levelStates[GameData.instance.cLevel] = 1;
 		PlayerPrefs.SetInt("linkdot_" + GameData.difficulty + "_" + GameData.instance.cLevel, 1);
 
 	}

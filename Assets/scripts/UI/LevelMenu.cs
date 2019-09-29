@@ -7,14 +7,9 @@ using DG.Tweening;
 public class LevelMenu : MonoBehaviour
 {
 
-    // Use this for initialization
-	public GameObject mainMenuPanel;
     GameObject listItemg;
 
     List<GameObject> groups;
-
-	public GameObject all_mainMenu;
-	public GameObject all_game;
 
 	GameObject controlbar;
 	GameObject btnDiff;
@@ -24,7 +19,6 @@ public class LevelMenu : MonoBehaviour
 
     void Start()
     {
-//        GameManager.getInstance().init();
 		UIManager.Instance ().Init ();
 		GameData.getInstance().resetData();
 
@@ -45,7 +39,6 @@ public class LevelMenu : MonoBehaviour
     public void refreshLevel()
     {
         GameData.instance.currentScene = 1;
-//        difficultPanel.transform.position = new Vector2(difficultPanel.transform.position.x, middlestart.y);
     }
 		
 
@@ -68,7 +61,6 @@ public class LevelMenu : MonoBehaviour
     /// <param name="force">Force.</param>
     public void swipePage(float force)
     {
-
 
         if (Mathf.Abs(force) < 1f)
         {//user not do a quick swipe
@@ -144,7 +136,7 @@ public class LevelMenu : MonoBehaviour
     }
 
     public GameObject levelButton;//the level button template instance
-    public GameObject dot;//the page dot for turn page
+//    public GameObject dot;//the page dot for turn page
 
     int page = 0;//current page
     int pages = 1;//how many page
@@ -153,113 +145,57 @@ public class LevelMenu : MonoBehaviour
     List<GameObject> pageDots;//all page dots
     float gap = Screen.width / 8.5f;//the gap for each page
     public Image mask;//the fade in/out mask
-    void initView()
+   
+	private void initView()
     {
-
-        //pageDots = new List<GameObject>();
-
-
-        //pages = Mathf.FloorToInt((GameData.totalLevel[GameData.difficulty] - 1) / perpage);
-        //for (int i = 0; i <= pages; i++)
-        //{
-        //    GameObject tdot = Instantiate(dot, dot.transform.parent) as GameObject;
-        //    tdot.SetActive(true);
-        //    pageDots.Add(tdot);
-        //    tdot.name = "dot_" + i;
-
-        //}
-
-        //setpageDot();
-        //fadeOut ();
-
-        //gContainer = new List<GameObject>();
-        //gContainer.Add(levelButton.transform.parent.gameObject);
-
         Transform container = levelButton.transform.parent;
         container.transform.localScale = Vector3.one;
 
-        //for (int i = perpage; i < GameData.totalLevel[GameData.difficulty]; i += perpage)
-        //{
-        //    GameObject tgroup = Instantiate(levelButton.transform.parent.gameObject, levelButton.transform.parent.position, Quaternion.identity) as GameObject;
-        //    tgroup.transform.Translate(gap * (i + 1), 0, 0);
-        //    gContainer.Add(tgroup);
+		//Instantiating the level selection buttons
+		for (int i = 0; i < GameData.totalLevel; i++)
+		{
+            GameObject levelBtn = Instantiate(levelButton,container.transform) as GameObject;
 
-        //    tgroup.transform.parent = levelButton.transform.parent.gameObject.transform.parent;
-        //}
+			levelBtn.SetActive(true);
 
+			//Updating the level tag
+			levelBtn.GetComponentInChildren<Text>().text = (i + 1).ToString();
 
-        for (int i = 0; i < GameData.totalLevel[GameData.difficulty]; i++)
-        {
-            GameObject tbtn = Instantiate(levelButton,container.transform) as GameObject;
+			Text ttext = levelBtn.GetComponentInChildren<Text>();
 
-            //int tContainerNo = Mathf.FloorToInt(i / perpage);
-            //tbtn.transform.parent = gContainer[tContainerNo].transform;
+			levelBtn.name = "level" + (i + 1);
 
-            tbtn.SetActive(true);
-
-
-            tbtn.GetComponentInChildren<Text>().text = (i + 1).ToString();
-
-            Text ttext = tbtn.GetComponentInChildren<Text>();
-
-
-            //star not used for this game
-            //if (GameData.getInstance().lvStar.Count > i)
-            //{
-
-            //    int starCount = GameData.getInstance().lvStar[i];
-
-
-            //    if (GameData.getInstance().lvStar.Count > i + 1)
-            //    {
-            //        for (int j = 1; j <= starCount; j++)
-            //        {
-            //            ttext.transform.parent.Find("star" + j).GetComponent<Image>().enabled = true;
-            //        }
-            //    }
-            //}
-
-
-            //if (i > GameData.getInstance().levelPassed && i > 0)
-            //{
-
-            //    ttext.enabled = false;
-
-            //}
-            //else
-            //{
-
-
-            tbtn.name = "level" + (i + 1);
-            tbtn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => clickLevel(tbtn));
-            ttext.gameObject.transform.parent.Find("lock").GetComponent<Image>().enabled = false;
-
-            //}
+			levelBtn.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() =>
+				clickLevel(levelBtn)
+			);
         }
 
-
-        //GameObject.Find("txtScore").GetComponent<Text>().text = Localization.Instance.GetString("totalScore") + GameData.getInstance().bestScore;
-        GameObject btnConfirm = GameObject.Find("confirm");//
-        if (btnConfirm != null) btnConfirm.GetComponentInChildren<Text>().text = "continue";
-
-
+		GameObject btnConfirm = GameObject.Find ("confirm");
+		if (btnConfirm != null) 
+		{
+			btnConfirm.GetComponentInChildren<Text> ().text = "continue";
+		}
     }
 
     //refresh button states
     public void refreshView()
     {
-        //print(GameData.difficulty);
-        for (int i = 0; i < GameData.totalLevel[GameData.difficulty]; i++)
+
+        for (int i = 0; i < GameData.totalLevel; i++)
         {
             GameObject tbtn = GameObject.Find("level" + (i+1));
             if (tbtn != null)
             {
-                int tlevelButtonState = GameData.instance.levelStates[GameData.difficulty][i];
-                if (tlevelButtonState == 1)
+//                int tlevelButtonState = GameData.instance.levelStates[GameData.difficulty][i];
+
+				int tlevelButtonState = GameData.instance.levelStates[i];
+
+				if (tlevelButtonState == 1)
                 {
                     tbtn.GetComponent<Image>().color = new Color(1, 111f/225f, 0);
                 }
-                else {
+                else 
+				{
                     tbtn.GetComponent<Image>().color = Color.grey;
                 }
             }
@@ -288,9 +224,7 @@ public class LevelMenu : MonoBehaviour
         setpageDot();
 
     }
-
-
-    public static bool islock = false;
+		
     /// <summary>
     /// Clicks the level button.
     /// </summary>
@@ -310,18 +244,13 @@ public class LevelMenu : MonoBehaviour
         }
         else//load level
         {
-            all_game = GameObject.Find("all_game");
-
-           // all_game.transform.parent.GetComponent<MainScript>().refreshView();//some ui must active before anim finishes;
-			//all_game.transform.parent.GetComponent<MainScript>().init();
 			UIManager.Instance().linkDotGO.GetComponent<linkDot.LinkDot>().init();
-            if (all_game != null)
+			if (UIManager.Instance().gamePanel != null)
             {
-				all_game.transform.position = Vector2.zero;
-               // all_game.transform.DOMoveX(0, 1f).SetEase(Ease.OutBounce);
+				UIManager.Instance().gamePanel.transform.position = Vector2.zero;
             }
 				
-			mainMenuPanel.SetActive (false);
+			UIManager.Instance().mainMenuPanel.SetActive (false);
         }
     }
 
@@ -347,13 +276,13 @@ public class LevelMenu : MonoBehaviour
 
         int tLastLevel = GameData.getInstance().levelPassed;
 
-        if (tLastLevel < GameData.totalLevel[GameData.difficulty])
+        if (tLastLevel < GameData.totalLevel)
         {
             GameData.getInstance().cLevel = tLastLevel;
         }
         else
         {
-            GameData.getInstance().cLevel = GameData.totalLevel[GameData.difficulty];
+            GameData.getInstance().cLevel = GameData.totalLevel;
         }
 
         string tstr = "game";// + GameData.getInstance ().cLevel;
@@ -366,10 +295,7 @@ public class LevelMenu : MonoBehaviour
         }
         else
         {
-			//all_game.transform.parent.GetComponent<MainScript> ().init ();
 			UIManager.Instance ().linkDotGO.GetComponent<linkDot.LinkDot> ().init ();
-            all_game = GameObject.Find("all_game");
-
         }
     }
 
@@ -378,20 +304,15 @@ public class LevelMenu : MonoBehaviour
     /// </summary>
     public void backMain()
     {
-        if (all_mainMenu == null || GameData.instance.mode == 1)//this is always for test because you may not start from the initiate window.
-        {
-            fadeIn("MainMenu");
-        }
-        else
-        {
-            all_mainMenu.transform.DOMoveX(all_mainMenu.transform.position.x + Screen.width, 1f).SetEase(Ease.OutBounce).OnComplete(() => { 
-				GameData.instance.currentScene = 0; 
-			});
-          //  all_level.transform.DOMoveX(all_level.transform.position.x + Screen.width, 1f).SetEase(Ease.OutBounce);
-        }
-
-
-
+		if (UIManager.Instance ().mainMenuPanel == null || GameData.instance.mode == 1) {//this is always for test because you may not start from the initiate window.
+			fadeIn ("MainMenu");
+		} 
+		else 
+		{
+			UIManager.Instance ().mainMenuPanel.transform.DOMoveX (UIManager.Instance ().mainMenuPanel.transform.position.x + Screen.width, 1f).SetEase (Ease.OutBounce).OnComplete (() => { 
+					GameData.instance.currentScene = 0; 
+				});
+		}
     }
 
     bool canmove = true;//can not enter a level and can not move when moving
@@ -408,7 +329,6 @@ public class LevelMenu : MonoBehaviour
             canmove = false;
 
             ATween.MoveTo(gContainer[0].transform.parent.gameObject, ATween.Hash("ignoretimescale", true, "islocal", true, "x", -gContainer[page].transform.localPosition.x, "time", .3f, "easeType", "easeOutExpo", "oncomplete", "dotclicked", "oncompletetarget", this.gameObject));
-
         }
     }
     /// <summary>
@@ -468,10 +388,7 @@ public class LevelMenu : MonoBehaviour
 
         mask.color = new Color(0, 0, 0, value);
     }
-
-
-
-
+		
     /// <summary>
     /// Returns the page to its origin place.
     /// </summary>

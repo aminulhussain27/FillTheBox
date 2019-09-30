@@ -26,14 +26,15 @@ public class ConnectionHandler : MonoBehaviour
 
 		GameData.getInstance ().InitializeGameData ();
 
+		//Setting the dots to its position
 		StartCoroutine (InitializeDots ());
 
-		SoundManager.Instance ().playSound (SoundManager.SOUND_ID.LEVEL_LOADED, 0.5f);
+		SoundManager.Instance ().playSound (SoundManager.SOUND_ID.LEVEL_LOADED, 0.25f);
 	}
 
 	IEnumerator InitializeDots()
 	{
-
+		//Attached the prefabs require to creating the path and dots
 		GameObject tBg = squarePrefab;
 		GameObject tCircle = dotPrefab;
 		GameObject tLink = connectorPrefab;
@@ -71,6 +72,7 @@ public class ConnectionHandler : MonoBehaviour
 
 			//Adding collider to those squares
 			tbg.gameObject.AddComponent<BoxCollider> ();
+			//Adding the touch handler script to each of  this square prefab created
 			tbg.gameObject.AddComponent<TouchHandler> ();
 
 			tbg.gameObject.GetComponent<TouchHandler> ().tx = tx;
@@ -79,11 +81,14 @@ public class ConnectionHandler : MonoBehaviour
 			GameData.instance.ColorData [i] = 0;//no color
 			GameData.instance.DotColorData [i] = 0;//no color
 
+			//In each side: Left,Right, Up, Down rotation array is created 
 			int[] rotation = new int[] { 0, 90, 180, 270 };
 
+
+			//Adding the 4 connector to each of the square for possible connection
 			for (int j = 0; j < 4; j++) 
 			{
-				//add 4 link lines to each square
+				//Instantiating the square as connector
 				GameObject tlink = Instantiate (tLink, UIManager.Instance ().linkDotContainer.transform);
                     
 				tlink.transform.localPosition = tbg.transform.localPosition;
@@ -110,51 +115,72 @@ public class ConnectionHandler : MonoBehaviour
 			}
 		}
 			
-            int n = 1;//because 0 is no color
-            for(int i = 0; i<GameData.instance.dotPoses.Count; i++) //(string tdotPoses in GameData.instance.dotPoses)
-            {
-                string[] pos = new string[2];
-                pos[0] = GameData.instance.dotPoses[i]["v"][0]["x"];
-                pos[1] = GameData.instance.dotPoses[i]["v"][0]["y"];
+         int n = 1;//because 0 is no color
+         
+		//Creating all dots here
+		for (int i = 0; i < GameData.instance.dotPoses.Count; i++) 
+		{ 
 
-                if (pos[0] == null || pos[0] == "") pos[0] = "0";
-                if (pos[1] == null || pos[1] == "") pos[1] = "0";
+			string[] pos = new string[2];
 
-                int tx = int.Parse(pos[0]);
-                int ty = int.Parse(pos[1]);
+			//Getting dot positions from game data
+			pos [0] = GameData.instance.dotPoses [i] ["v"] [0] ["x"];
+			pos [1] = GameData.instance.dotPoses [i] ["v"] [0] ["y"];
 
-                int tindex = ty * GameData.bsize + tx;
+			if (pos [0] == null || pos [0] == "") {
+				pos [0] = "0";
+			}
+
+			if (pos [1] == null || pos [1] == "") {
+				pos [1] = "0";
+			}
+
+			int tx = int.Parse (pos [0]);
+			int ty = int.Parse (pos [1]);
+
+			int tindex = ty * GameData.bsize + tx;
    
-                GameObject tcircle = Instantiate(tCircle, tbgs[tindex].transform) as GameObject;
+			#region FIRST_DOT
+			//Creating the dots here, In some particular place these will be present(2 of each color)
+			GameObject tcircle = Instantiate (tCircle, tbgs [tindex].transform) as GameObject;
 
-				tcircle.transform.localScale *= 0.9f;
-                tcircle.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                tcircle.GetComponent<SpriteRenderer>().color = GameData.instance.colors[i+1];
+			//Rescaling for proper orientation
+			tcircle.transform.localScale *= 0.9f;
+			//adding all of the dots to sorting layer 3(Bringing the front)
+			tcircle.GetComponent<SpriteRenderer> ().sortingOrder = 3;
+			tcircle.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [i + 1];
 
-                tcircle.name = "dot";
+			//Giving the name as dot
+			tcircle.name = "dot";
 
-                GameData.instance.DotColorData[tindex] = i + 1;
+			#endregion
 
-                int tcount = GameData.instance.dotPoses[i]["v"].Count;
-                pos[0] = GameData.instance.dotPoses[i]["v"][tcount-1]["x"];//
-                pos[1] = GameData.instance.dotPoses[i]["v"][tcount-1]["y"];//
+			#region SECOND_DOT
+			GameData.instance.DotColorData [tindex] = i + 1;
 
-                if (pos[0] == null || pos[0] == "") pos[0] = "0";
-                if (pos[1] == null || pos[1] == "") pos[1] = "0";
+			int tcount = GameData.instance.dotPoses [i] ["v"].Count;
+			pos [0] = GameData.instance.dotPoses [i] ["v"] [tcount - 1] ["x"];
+			pos [1] = GameData.instance.dotPoses [i] ["v"] [tcount - 1] ["y"];
 
-                tx = int.Parse(pos[0]);
-                ty = int.Parse(pos[1]);
+			if (pos [0] == null || pos [0] == "")
+				pos [0] = "0";
+			if (pos [1] == null || pos [1] == "")
+				pos [1] = "0";
 
-                tindex = ty * GameData.bsize + tx;
-                tcircle = Instantiate(tCircle, tbgs[tindex].transform) as GameObject;
+			tx = int.Parse (pos [0]);
+			ty = int.Parse (pos [1]);
 
-                tcircle.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                tcircle.GetComponent<SpriteRenderer>().color = GameData.instance.colors[i+1];
+			tindex = ty * GameData.bsize + tx;
+			//Instantiating another dot here
+			tcircle = Instantiate (tCircle, tbgs [tindex].transform) as GameObject;
 
-                tcircle.name = "dot";
+			tcircle.GetComponent<SpriteRenderer> ().sortingOrder = 3;
+			tcircle.GetComponent<SpriteRenderer> ().color = GameData.instance.colors [i + 1];
+			tcircle.name = "dot";
+			#endregion
 
-                GameData.instance.DotColorData[tindex] = i+1;
-            }
+			GameData.instance.DotColorData [tindex] = i + 1;
+		}
 			
 		//Adding some offset for proper positioning
 		transform.localScale = new Vector3 (1.65f, 1.6f, 1);

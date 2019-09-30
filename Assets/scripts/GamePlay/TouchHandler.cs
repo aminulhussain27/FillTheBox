@@ -12,12 +12,10 @@ using UnityEngine;
           
 			id = ty * GameData.bsize + tx;
         }
-			
 
 		void OnMouseDown () 
 		{
-//			Debug.Log ("void OnMouseDown () ");
-
+		//If game wins already No touches are taking
 			if (GameData.instance.isWin) 
 			{
 				return;
@@ -33,7 +31,7 @@ using UnityEngine;
 
 			if (tdotColor != 0) 
 			{
-				//got a dot here
+				//If i put the click to any dot then clearing any incomplete old path connected to this dot
 				ClearOldPath(tdotColor);
 
 				GameData.instance.pickColor = tdotColor;
@@ -106,6 +104,7 @@ using UnityEngine;
 			GameData.instance.lasttx = tx;
 			GameData.instance.lastty = ty;
 
+		//Checking for all the dots are conneted or not
             CheckForPossibleWinning();
         }
 
@@ -134,6 +133,7 @@ using UnityEngine;
 
 					GameData.instance.ColorData [oldid] = 0;
 
+			//Removing the path which was created
 				RemovePath(tcolorid,GameData.instance.paths[tcolorid].Count-1);
 				//reopen the Connection
 				GameData.instance.linkedLines[tcolorid] = 0;
@@ -166,6 +166,7 @@ using UnityEngine;
 					if ((Mathf.Abs (tx - GameData.instance.lasttx) == 1 && ty == GameData.instance.lastty) ||
 					     (Mathf.Abs (ty - GameData.instance.lastty) == 1 && tx == GameData.instance.lasttx)) 
 					{
+						//Adding the color to the path
 						AddColor ();
 					}
 				}
@@ -198,6 +199,7 @@ using UnityEngine;
 
 										oldBg.transform.GetComponent<SpriteRenderer> ().color = tcolor;
 
+									   //Removing the path
 										RemovePath(tColorid,GameData.instance.paths[tColorid].Count-1);
 
 										GameData.instance.ColorData [oldId] = 0;
@@ -272,7 +274,7 @@ using UnityEngine;
 			}
 		}
 
-
+	//Creating color to the path which created
 		private void AddColor()
 		{
 			int tdotColor = GameData.instance.DotColorData [id];
@@ -311,7 +313,7 @@ using UnityEngine;
 			GameData.instance.lastty = ty;
 		}
 
-
+	//Mouse up So no more path creating or removing
 		private	void OnMouseUp()
 		{
 			if (GameData.instance.isWin)
@@ -320,20 +322,10 @@ using UnityEngine;
 			
 			GameData.instance.isHolding = false;
 		}
-
-
-//        static bool canPlatDotSfx = true;//make draw sound effect not be too frequent;
-//        
-//		IEnumerator sfxGap()
-//        {
-//            yield return new WaitForSeconds(.2f);
-//
-//            canPlatDotSfx = true;
-//        }
+		
 
 		void AddPath(int colorId,int placeId)
 		{
-//		Debug.Log ("Path added");
            
 		GameData.instance.paths [colorId].Add (placeId);
 
@@ -452,6 +444,7 @@ using UnityEngine;
 			{
 				if (GameData.instance.linkedLines [k] == 1) 
 				{
+				//Number of connection increased
 					nwin++;
 				}
 			}
@@ -463,6 +456,7 @@ using UnityEngine;
 
 				GameData.instance.isWin = true;
 
+			//Winning popup showing here
 				UIManager.Instance ().GameWin ();
 			}
 		}

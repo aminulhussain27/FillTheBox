@@ -7,13 +7,7 @@ public class LevelHandler : MonoBehaviour
 {
 	public GameObject levelButton;//the level button template instance
 
-	private GameObject listItemg;
-
-	private List<GameObject> gContainer;//each icon group for per page
-
 	private List<GameObject> pageDots;//all page dots
-
-	private GameObject controlbar;
 
 	private GameObject btnDiff;
 
@@ -21,19 +15,13 @@ public class LevelHandler : MonoBehaviour
 
 	private int page = 0;//current page
 
-	private int pages = 1;//how many page
-
-	private float gap = Screen.width / 8.5f;//the gap for each page
-
-	public int perpage = 8;//icons per page
-
-	public Image mask;//the fade in/out mask
-
 
     void Start()
     {
+		//Resetting the previous data
 		GameData.getInstance().ResetData();
 
+		//Initializing the levels available in Json file
         InitializeLevels();
 	}
 

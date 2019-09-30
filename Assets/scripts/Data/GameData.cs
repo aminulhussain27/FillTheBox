@@ -21,7 +21,7 @@ public class GameData : ScriptableObject
 	public List<int> lvStar = new List<int>();//level stars you got for each level
 	public List<List<int>> paths;
     
-	public static int totalLevel = 10;//total levels,currently,we make things easier,only use 50 levels the same for each difficulty
+	public static int totalLevel = 15;//total levels,currently,we make things easier,only use 50 levels the same for each difficulty
 	public static int bsize = 6;
 
 
@@ -56,7 +56,7 @@ public class GameData : ScriptableObject
 
 		for (int j = 0; j < GameData.totalLevel; j++) 
 		{
-			int tState = PlayerPrefs.GetInt ("linkdot_" + 1 + "_" + j);
+			int tState = PlayerPrefs.GetInt ("FinishedLevel_" + 1 + "_" + j);
 		
 			GameData.instance.levelStates.Add (tState);
 		}
@@ -93,6 +93,7 @@ public class GameData : ScriptableObject
         linkedLines = new int[GameData.instance.paths.Count+1];
     }
 		
+	//Clearing all data created
     public void ClearData()
     {
 		foreach(Transform tobj in UIManager.Instance ().linkDotContainer.transform)

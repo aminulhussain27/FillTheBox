@@ -1648,10 +1648,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicClips:
   - {fileID: 8300000, guid: f22f46703c83d8d4b88713cbd5b97fd1, type: 3}
-  - {fileID: 8300000, guid: 059bc5a20764e0249b50f2a17b57e04d, type: 3}
+  - {fileID: 8300000, guid: 0fd5a523747571541bb7855af1b20f26, type: 3}
   - {fileID: 8300000, guid: 617ff771de489f040ac8d6ed1eb80c05, type: 3}
-  - {fileID: 8300000, guid: defdb98bfddc24748aead1ce73ba7972, type: 3}
-  - {fileID: 8300000, guid: 7d3e9476d15f4cf4fb18b9e688dfb3dc, type: 3}
+  - {fileID: 8300000, guid: bc6c5e49b01d3104f97a8b965acd87d1, type: 3}
+  - {fileID: 8300000, guid: 4668101f79c56204c8e9b7a055df10bc, type: 3}
 --- !u!4 &783618066
 Transform:
   m_ObjectHideFlags: 0
